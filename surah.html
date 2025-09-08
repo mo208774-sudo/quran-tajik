@@ -39,9 +39,12 @@
 <body>
     <header class="site-header">
         <div class="container header-inner">
-            <a class="brand" href="index.html">
-                <span class="brand-mark" aria-hidden="true">Тафсири Осонбаён</span>
-            </a>
+            <div class="brand">
+                <a href="index.html" class="home-btn" aria-label="Главная страница" title="Главная страница">
+                    <span class="home-icon">☰</span>
+                </a>
+                <h1 id="surahName" class="surah-title">Surah</h1>
+            </div>
             <div class="header-actions">
                 <button id="themeToggle" class="icon-btn" aria-label="Toggle theme" title="Theme">
                     <span class="icon sun" aria-hidden="true"></span>
@@ -72,18 +75,9 @@
     </header>
 
     <main class="container">
-        <nav class="crumbs">
-            <a href="index.html" data-i18n="home">Главная</a>
-            <span>/</span>
-            <span id="surahTitle">Surah</span>
-        </nav>
 
         <section class="viewer">
             <div class="viewer-header">
-                <div>
-                    <h1 id="surahName">Surah</h1>
-                    <p class="sub" id="surahMeta">PDF</p>
-                </div>
                 <div class="viewer-actions">
                     <!-- Reciter Selector -->
                     <div class="reciter-selector">

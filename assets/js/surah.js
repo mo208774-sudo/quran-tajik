@@ -2,7 +2,6 @@
   const params = new URLSearchParams(location.search)
   const num = Number(params.get('num') || '1')
   const nameEl = document.getElementById('surahName')
-  const titleEl = document.getElementById('surahTitle')
   const metaEl = document.getElementById('surahMeta')
   const container = document.getElementById('pdfContainer')
   const prevBtn = document.getElementById('prevPage')
@@ -183,8 +182,7 @@
   function render(){
     const name = getName(s)
     if (nameEl) nameEl.textContent = `${s.n || num}. ${name}`
-    if (titleEl) titleEl.textContent = `${s.n || num}. ${name}`
-    if (metaEl) metaEl.textContent = pdfPath().split('/').slice(-1)[0]
+    if (metaEl) metaEl.textContent = ''
     
     // Update SEO meta tags dynamically
     updateSEOMeta(s, name)

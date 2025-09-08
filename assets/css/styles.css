@@ -55,9 +55,40 @@ body {
 .site-header { position: sticky; top: 0; z-index: 50; background: rgba(10,13,18,.6); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
 [data-theme="light"] .site-header { background: rgba(255,255,255,.7); }
 .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
-.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; letter-spacing: .2px; }
+.brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); font-weight: 700; letter-spacing: .2px; }
 .brand-mark { font-size: 22px; background: linear-gradient(120deg, var(--brand), var(--brand-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .brand-text { font-size: 18px; }
+
+/* Home button and surah title in header */
+.home-btn { 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  width: 40px; 
+  height: 40px; 
+  border-radius: 8px; 
+  background: var(--panel); 
+  border: 1px solid var(--border); 
+  color: var(--text); 
+  text-decoration: none; 
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow);
+}
+.home-btn:hover { 
+  background: var(--brand); 
+  color: white; 
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.home-icon { 
+  font-size: 18px; 
+}
+.surah-title { 
+  font-size: 20px; 
+  margin: 0; 
+  color: var(--text); 
+  font-weight: 600;
+}
 
 .header-actions { display: flex; align-items: center; gap: 10px; }
 .search { position: relative; }
@@ -428,6 +459,9 @@ body {
   .info-icon { font-size: 0; }
   .info-icon::before { font-size: 18px; }
   .brand-mark { font-size: 16px; }
+  .surah-title { font-size: 18px; }
+  .home-btn { width: 36px; height: 36px; }
+  .home-icon { font-size: 16px; }
   .hero .ayah { 
     padding: 16px 20px; 
     font-size: 16px; 
@@ -460,6 +494,9 @@ body {
   .info-icon { font-size: 0; }
   .info-icon::before { font-size: 18px; }
   .brand-mark { font-size: 14px; }
+  .surah-title { font-size: 16px; }
+  .home-btn { width: 32px; height: 32px; }
+  .home-icon { font-size: 14px; }
   .hero .ayah { 
     padding: 14px 18px; 
     font-size: 15px; 
