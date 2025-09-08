@@ -14,7 +14,6 @@
         <div class="container header-inner">
             <a class="brand" href="index.html">
                 <span class="brand-mark" aria-hidden="true">﷽</span>
-                <span class="brand-text" data-i18n="brand">Тафсири осонбаён</span>
             </a>
             <div class="header-actions">
                 <button id="themeToggle" class="icon-btn" aria-label="Toggle theme" title="Theme">
@@ -45,6 +44,7 @@
                 </div>
                 <div class="viewer-actions">
                     <button class="btn" id="fullscreenBtn" aria-label="Fullscreen" title="Fullscreen">⤢</button>
+                    <button class="btn" id="savePageBtn" data-i18n="save_page">Сохранить страницу</button>
                 </div>
             </div>
             <div id="pdfContainer" class="pdf-container" aria-label="PDF"></div>
@@ -59,8 +59,15 @@
         </div>
     </footer>
 
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <div id="loader" class="loader">
+        <div class="loader-content">
+            <div class="loader-spinner">﷽</div>
+            <div class="loader-text" data-i18n="loading">Загрузка...</div>
+        </div>
+    </div>
     <script src="assets/js/i18n.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.js" integrity="sha512-3cNbqbQA1XHf2mLusQG1mG3WB/Ky2b9gE1Cw1cMQb5WtoQmY9bfdz0+Y3Zmd5T+oYq1Q0l0E8Jf2wKk8Qh9q1w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script src="assets/js/surah.js"></script>
 </body>
 </html>

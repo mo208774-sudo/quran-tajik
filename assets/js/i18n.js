@@ -15,7 +15,9 @@
       footer_note: 'Open educational project.',
       home: 'Home',
       download: 'Download PDF',
-      verse_98_7: 'Indeed, those who believe and do righteous deeds—they are the best of creation (98:7)'
+      verse_98_7: 'Indeed, those who believe and do righteous deeds—they are the best of creation (98:7)',
+      save_page: 'Save current page',
+      loading: 'Loading...'
     },
     ru: {
       brand: 'Тафсири осонбаён',
@@ -28,7 +30,9 @@
       home: 'Главная',
       download: 'Скачать PDF',
       verse_98_7: '«Поистине, те, которые уверовали и совершали праведные деяния, они – лучшие творения» (98:7)',
-      continue: 'Продолжить чтение'
+      continue: 'Продолжить чтение',
+      save_page: 'Сохранить текущую страницу',
+      loading: 'Загрузка...'
     },
     tg: {
       brand: 'Тафсири осонбаён',
@@ -41,7 +45,9 @@
       home: 'Саҳифаи асосӣ',
       download: 'Боргирии PDF',
       verse_98_7: ' Касоне, ки имон овардаанд ва корҳои шоиста мекунанд, беҳтарини офаридагонанд. (98:7)',
-      continue: 'Идома додани қироат'
+      continue: 'Идома додани қироат',
+      save_page: 'Захира кардани саҳифаи ҷорӣ',
+      loading: 'Боргирӣ...'
     }
   }
 

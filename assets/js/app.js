@@ -4,8 +4,10 @@
   const totalCount = document.getElementById('totalCount')
   const cont = document.getElementById('continueBanner')
   const contLink = document.getElementById('continueLink')
+  const contGo = document.getElementById('continueGo')
   const clearContinue = document.getElementById('clearContinue')
   const contMeta = document.getElementById('continueMeta')
+  const loader = document.getElementById('loader')
 
   const SURAHS = [
     { n:1,  a:'Al-Fatiha', ru:'Аль-Фатиха', tg:'Ал-Фотиҳа' },
@@ -158,59 +160,79 @@
     render(data)
   }
 
-  function init(){
-    render(SURAHS)
-    if (searchInput){
-      document.addEventListener('keydown', e=>{ if (e.key === '/' && document.activeElement !== searchInput){ e.preventDefault(); searchInput.focus() }})
-      searchInput.addEventListener('input', filter)
+  function showLoader(show = true){
+    if (!loader) return
+    if (show) {
+      loader.classList.remove('hidden')
+    } else {
+      loader.classList.add('hidden')
     }
-    window.addEventListener('lang:change', filter)
-
-    initContinue()
   }
 
-  function initContinue(){
+  function init(){
+    // Show loader initially
+    showLoader(true)
+    
+    // Simulate loading time for better UX
+    setTimeout(() => {
+      render(SURAHS)
+      if (searchInput){
+        document.addEventListener('keydown', e=>{ if (e.key === '/' && document.activeElement !== searchInput){ e.preventDefault(); searchInput.focus() }})
+        searchInput.addEventListener('input', filter)
+      }
+      window.addEventListener('lang:change', ()=>{ filter(); updateContinue() })
+
+      // Initial render of continue banner and live updates
+      updateContinue()
+      window.addEventListener('storage', (e)=>{ if (!e.key) return; if (e.key.startsWith(`lastRead:${currentLang()}:`)) updateContinue() })
+      window.addEventListener('pageshow', updateContinue)
+      document.addEventListener('visibilitychange', ()=>{ if (!document.hidden) updateContinue() })
+      
+      // Hide loader after everything is ready
+      showLoader(false)
+    }, 500)
+  }
+
+  function findLatestSaved(){
     const lang = currentLang()
-    // find any saved key for this lang
     const prefix = `lastRead:${lang}:`
-    let saved = null
+    let latest = null
     for (let i=1;i<=114;i++){
       const v = localStorage.getItem(prefix + i)
-      if (v){ saved = { num:i, page:Number(v)||1 }; break }
+      if (!v) continue
+      const ts = Number(localStorage.getItem(`${prefix}${i}:ts`) || 0)
+      if (!latest || ts > latest.ts){ latest = { num: i, page: Number(v)||1, ts } }
     }
-    if (!saved || !cont || !contLink) return
+    return latest
+  }
+
+  function updateContinue(){
+    if (!cont || !contLink) return
+    const saved = findLatestSaved()
+    if (!saved){ cont.hidden = true; return }
     const surah = SURAHS.find(s=>s.n===saved.num)
     const name = surah ? titleFor(surah) : `Surah ${saved.num}`
-    const when = new Date(Number(localStorage.getItem(`${prefix}${saved.num}:ts`)||Date.now())).toLocaleString()
+    const when = new Date(saved.ts || Date.now()).toLocaleString()
+    const href = `surah.html?num=${saved.num}#page=${saved.page}`
     contLink.textContent = `${name}`
-    contLink.href = `surah.html?num=${saved.num}#page=${saved.page}`
+    contLink.href = href
+    if (contGo) contGo.href = href
     if (contMeta){
-      const ayah = saved.page // proxy for page since without PDF.js
-      contMeta.textContent = `Аят: ${ayah} • ${when}`
+      const lang = currentLang()
+      const labelPage = lang==='tg' ? 'Саҳифа' : (lang==='en' ? 'Page' : 'Страница')
+      const labelLast = lang==='tg' ? 'Охирин хондан' : (lang==='en' ? 'Last read' : 'Последнее чтение')
+      contMeta.textContent = `${labelPage}: ${saved.page} • ${labelLast}: ${when}`
     }
     cont.hidden = false
     if (clearContinue){
-      clearContinue.addEventListener('click', ()=>{
-        localStorage.removeItem(prefix + saved.num)
-        localStorage.removeItem(`${prefix}${saved.num}:ts`)
-        cont.hidden = true
-      })
-    }
-    // Live update from surah page
-    window.addEventListener('reading:updated', (e)=>{
-      const d = e.detail
-      if (!d) return
-      if (d.num){
-        contLink.href = `surah.html?num=${d.num}#page=${d.page}`
-        const name2 = (SURAHS.find(s=>s.n===d.num) ? titleFor(SURAHS.find(s=>s.n===d.num)) : `Surah ${d.num}`)
-        contLink.textContent = name2
-        if (contMeta){
-          const when2 = new Date().toLocaleString()
-          contMeta.textContent = `Аят: ${d.page} • ${when2}`
-        }
-        cont.hidden = false
+      const lang = currentLang()
+      const prefix = `lastRead:${lang}:`
+      if (clearContinue){
+        clearContinue.style.display = 'none'
       }
-    })
+    }
+    // Make whole banner clickable
+    if (cont){ cont.onclick = (e)=>{ const isLink = e.target === contLink || e.target === contGo; if (!isLink){ window.location.href = href } } }
   }
 
   document.addEventListener('DOMContentLoaded', init)
