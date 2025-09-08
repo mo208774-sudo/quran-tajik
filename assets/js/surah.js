@@ -15,8 +15,6 @@
   // Audio player elements
   const compactAudioPlayer = document.getElementById('compactAudioPlayer')
   const playPauseBtn = document.getElementById('playPauseBtn')
-  const muteBtn = document.getElementById('muteBtn')
-  const audioMenuBtn = document.getElementById('audioMenuBtn')
   const reciterSelect = document.getElementById('reciterSelect')
   const audioProgress = document.getElementById('audioProgress')
   const currentTime = document.getElementById('currentTime')
@@ -164,7 +162,6 @@
   let audio = null
   let audioData = null
   let isPlaying = false
-  let isMuted = false
   let currentReciter = null
   let defaultReciter = '1' // Mishary Rashid Al Afasy
 
@@ -457,34 +454,6 @@
     duration.textContent = '0:00'
   }
 
-  function toggleMute() {
-    if (!audio) return
-    
-    isMuted = !isMuted
-    audio.muted = isMuted
-    updateMuteButton()
-  }
-
-  function updateMuteButton() {
-    if (!muteBtn) return
-    
-    const unmuteIcon = muteBtn.querySelector('.unmute-icon')
-    const muteIcon = muteBtn.querySelector('.mute-icon')
-    
-    if (isMuted) {
-      unmuteIcon.style.display = 'none'
-      muteIcon.style.display = 'inline'
-    } else {
-      unmuteIcon.style.display = 'inline'
-      muteIcon.style.display = 'none'
-    }
-  }
-
-  function showAudioMenu() {
-    // For now, just show a simple alert
-    // In the future, this could show a dropdown with more options
-    alert('Меню аудио (в разработке)')
-  }
 
   function initControls(){
     if (fullscreenBtn) fullscreenBtn.addEventListener('click', openFullscreen)
@@ -586,14 +555,6 @@
     // Audio player event listeners
     if (playPauseBtn) {
       playPauseBtn.addEventListener('click', togglePlayPause)
-    }
-    
-    if (muteBtn) {
-      muteBtn.addEventListener('click', toggleMute)
-    }
-    
-    if (audioMenuBtn) {
-      audioMenuBtn.addEventListener('click', showAudioMenu)
     }
     
     if (reciterSelect) {

@@ -485,7 +485,7 @@ body {
   border-radius: 20px;
   padding: 8px 12px;
   margin-right: 12px;
-  min-width: 300px;
+  min-width: 200px;
   height: 40px;
 }
 
@@ -548,10 +548,6 @@ body {
   transition: width 0.1s ease;
 }
 
-.compact-mute-btn,
-.compact-menu-btn {
-  font-size: 16px;
-}
 
 /* Mobile responsiveness for audio player */
 @media (max-width: 768px) {
@@ -561,7 +557,7 @@ body {
   }
   
   .compact-audio-player {
-    min-width: 250px;
+    min-width: 180px;
     margin-right: 8px;
   }
   
@@ -583,7 +579,7 @@ body {
   }
   
   .compact-audio-player {
-    min-width: 250px;
+    min-width: 180px;
     margin-right: 8px;
   }
 }
