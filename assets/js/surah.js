@@ -213,16 +213,16 @@
     const surahNum = surah.n || num
     
     // Generate SEO-optimized content
-    const titleRu = `Сура ${name} - Коран на таджикском языке | Тафсири осонбаён`
-    const titleTg = `Сура ${name} - Қуръон бо забони тоҷикӣ | Тафсири осонбаён`
+    const titleRu = `Сура ${name} - Коран на таджикском языке | Тафсири Осонбаён`
+    const titleTg = `Сура ${name} - Қуръон бо забони тоҷикӣ | Тафсири Осонбаён`
     const titleEn = `Surah ${surah.a} - Quran in Tajik Language | Tafsiri Osonbayon`
     
     const descRu = `Читайте суру ${name} на таджикском языке с тафсиром. Сура ${surahNum} Корана с переводом и толкованием на точики.`
     const descTg = `Сура ${name}-ро бо забони тоҷикӣ бо тафсир хонед. Сура ${surahNum} Қуръон бо тарҷума ва тафсир.`
     const descEn = `Read Surah ${surah.a} in Tajik language with tafsir. Surah ${surahNum} of Quran with translation and commentary.`
     
-    const keywordsRu = `сура ${name.toLowerCase()}, коран на таджикском, куръон бо забони точики, тафсири осонбаён, сура ${surahNum}, коран суры, коран аяты, коран тафсир, коран толкование`
-    const keywordsTg = `сура ${name.toLowerCase()}, қуръон бо забони тоҷикӣ, тафсири осонбаён, сура ${surahNum}, қуръон сураҳо, қуръон оятҳо, қуръон тафсир`
+    const keywordsRu = `сура ${name.toLowerCase()}, коран на таджикском, куръон бо забони точики, тафсири Осонбаён, сура ${surahNum}, коран суры, коран аяты, коран тафсир, коран толкование`
+    const keywordsTg = `сура ${name.toLowerCase()}, қуръон бо забони тоҷикӣ, тафсири Осонбаён, сура ${surahNum}, қуръон сураҳо, қуръон оятҳо, қуръон тафсир`
     const keywordsEn = `surah ${surah.a.toLowerCase()}, quran in tajik, tafsiri osonbayon, surah ${surahNum}, quran surahs, quran verses, quran tafsir`
     
     // Update title
@@ -263,11 +263,11 @@
       "description": description,
       "author": {
         "@type": "Organization",
-        "name": "Тафсири осонбаён"
+        "name": "Тафсири Осонбаён"
       },
       "publisher": {
         "@type": "Organization",
-        "name": "Тафсири осонбаён",
+        "name": "Тафсири Осонбаён",
         "url": "https://tafsiri-osonbayon.com"
       },
       "datePublished": "2024-01-01",

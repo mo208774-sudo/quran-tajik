@@ -1,7 +1,6 @@
 ;(function(){
   const searchInput = document.getElementById('searchInput')
   const grid = document.getElementById('surahGrid')
-  const totalCount = document.getElementById('totalCount')
   const cont = document.getElementById('continueBanner')
   const contLink = document.getElementById('continueLink')
   const contGo = document.getElementById('continueGo')
@@ -173,15 +172,14 @@
           <div class="meta" itemprop="alternativeHeadline">${s.a}</div>
         </div>
         <meta itemprop="description" content="Читайте суру ${title} на таджикском языке с тафсиром">
-        <meta itemprop="author" content="Тафсири осонбаён">
-        <meta itemprop="publisher" content="Тафсири осонбаён">
+        <meta itemprop="author" content="Тафсири Осонбаён">
+        <meta itemprop="publisher" content="Тафсири Осонбаён">
         <meta itemprop="inLanguage" content="${currentLang()}">
       `
       
       wrapper.appendChild(a)
       grid.appendChild(wrapper)
     })
-    if (totalCount) totalCount.textContent = String(list.length)
   }
 
   function filter(){
