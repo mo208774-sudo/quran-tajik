@@ -2,6 +2,10 @@
   const searchInput = document.getElementById('searchInput')
   const grid = document.getElementById('surahGrid')
   const totalCount = document.getElementById('totalCount')
+  const cont = document.getElementById('continueBanner')
+  const contLink = document.getElementById('continueLink')
+  const clearContinue = document.getElementById('clearContinue')
+  const contMeta = document.getElementById('continueMeta')
 
   const SURAHS = [
     { n:1,  a:'Al-Fatiha', ru:'Аль-Фатиха', tg:'Ал-Фотиҳа' },
@@ -161,6 +165,52 @@
       searchInput.addEventListener('input', filter)
     }
     window.addEventListener('lang:change', filter)
+
+    initContinue()
+  }
+
+  function initContinue(){
+    const lang = currentLang()
+    // find any saved key for this lang
+    const prefix = `lastRead:${lang}:`
+    let saved = null
+    for (let i=1;i<=114;i++){
+      const v = localStorage.getItem(prefix + i)
+      if (v){ saved = { num:i, page:Number(v)||1 }; break }
+    }
+    if (!saved || !cont || !contLink) return
+    const surah = SURAHS.find(s=>s.n===saved.num)
+    const name = surah ? titleFor(surah) : `Surah ${saved.num}`
+    const when = new Date(Number(localStorage.getItem(`${prefix}${saved.num}:ts`)||Date.now())).toLocaleString()
+    contLink.textContent = `${name}`
+    contLink.href = `surah.html?num=${saved.num}#page=${saved.page}`
+    if (contMeta){
+      const ayah = saved.page // proxy for page since without PDF.js
+      contMeta.textContent = `Аят: ${ayah} • ${when}`
+    }
+    cont.hidden = false
+    if (clearContinue){
+      clearContinue.addEventListener('click', ()=>{
+        localStorage.removeItem(prefix + saved.num)
+        localStorage.removeItem(`${prefix}${saved.num}:ts`)
+        cont.hidden = true
+      })
+    }
+    // Live update from surah page
+    window.addEventListener('reading:updated', (e)=>{
+      const d = e.detail
+      if (!d) return
+      if (d.num){
+        contLink.href = `surah.html?num=${d.num}#page=${d.page}`
+        const name2 = (SURAHS.find(s=>s.n===d.num) ? titleFor(SURAHS.find(s=>s.n===d.num)) : `Surah ${d.num}`)
+        contLink.textContent = name2
+        if (contMeta){
+          const when2 = new Date().toLocaleString()
+          contMeta.textContent = `Аят: ${d.page} • ${when2}`
+        }
+        cont.hidden = false
+      }
+    })
   }
 
   document.addEventListener('DOMContentLoaded', init)

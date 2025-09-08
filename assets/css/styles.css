@@ -66,6 +66,11 @@ body {
 
 /* Surah list */
 .surahs { padding: 20px 0 60px; }
+.continue { display:flex; align-items:center; justify-content: space-between; gap:12px; border:1px solid var(--border); background: linear-gradient(180deg, var(--panel), transparent 140%); border-radius:14px; padding:12px 14px; box-shadow: var(--shadow); margin-bottom:14px; }
+.continue-text { display:flex; flex-direction: column; gap:4px; }
+.continue-text .title { font-weight: 700; }
+.continue-text .meta { color: var(--muted); font-size: 14px; }
+.continue-text a { color: var(--brand); text-decoration: none; font-weight: 600; }
 .surah-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
 .legend .pill { background: var(--panel); border: 1px solid var(--border); color: var(--muted); padding: 6px 10px; border-radius: 999px; }
 .grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
@@ -82,8 +87,11 @@ body {
 .crumbs { color: var(--muted); margin: 18px 0; display: flex; gap: 8px; align-items: center; }
 .viewer { padding-bottom: 60px; }
 .viewer-header { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
-.btn { display: inline-block; padding: 10px 12px; border-radius: 10px; background: var(--panel); border: 1px solid var(--border); color: var(--text); text-decoration: none; }
+.btn { display: inline-block; padding: 10px 12px; border-radius: 10px; background: var(--panel); border: 1px solid var(--border); color: var(--text); text-decoration: none; cursor: pointer; }
+.pager { display: inline-flex; align-items: center; gap: 6px; margin-right: 8px; }
 .pdf-frame { width: 100%; height: min(80vh, 900px); border: 1px solid var(--border); border-radius: 12px; background: var(--panel); box-shadow: var(--shadow); }
+.pdf-container { width: 100%; height: min(80vh, 900px); overflow: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--panel); box-shadow: var(--shadow); padding: 16px; }
+.pdf-page { display: block; margin: 0 auto 16px; background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,.25); border-radius: 6px; }
 
 /* Footer */
 .site-footer { border-top: 1px solid var(--border); padding: 20px 0 30px; color: var(--muted); }

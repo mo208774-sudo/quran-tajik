@@ -44,10 +44,10 @@
                     <p class="sub" id="surahMeta">PDF</p>
                 </div>
                 <div class="viewer-actions">
-                    <a class="btn" id="downloadLink" href="#" target="_blank" rel="noreferrer" data-i18n="download">Скачать PDF</a>
+                    <button class="btn" id="fullscreenBtn" aria-label="Fullscreen" title="Fullscreen">⤢</button>
                 </div>
             </div>
-            <iframe id="pdfFrame" title="PDF" class="pdf-frame" loading="lazy"></iframe>
+            <div id="pdfContainer" class="pdf-container" aria-label="PDF"></div>
         </section>
     </main>
 
@@ -60,6 +60,7 @@
     </footer>
 
     <script src="assets/js/i18n.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.2.67/pdf.min.js" integrity="sha512-3cNbqbQA1XHf2mLusQG1mG3WB/Ky2b9gE1Cw1cMQb5WtoQmY9bfdz0+Y3Zmd5T+oYq1Q0l0E8Jf2wKk8Qh9q1w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="assets/js/surah.js"></script>
 </body>
 </html>
