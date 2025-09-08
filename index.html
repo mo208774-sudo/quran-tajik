@@ -2,9 +2,46 @@
 <html lang="tg" data-theme="dark">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     
-    <!-- Primary Meta Tags -->
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://quranapi.pages.dev">
+    
+    <!-- Critical CSS inline for above-the-fold content -->
+    <style>
+      /* Critical CSS loaded inline for performance */
+      :root{--bg:#0b0e13;--panel:#121722;--text:#e7edf3;--muted:#9fb0c3;--brand:#22c1c3;--brand-2:#2a9d8f;--ring:#2dd4bf55;--border:#1f2430;--shadow:0 10px 30px rgba(0,0,0,.25)}
+      [data-theme="light"]{--bg:#ffffff;--panel:#f5f7fb;--text:#0b1320;--muted:#5b6b7a;--brand:#1e88e5;--brand-2:#3f51b5;--ring:#60a5fa66;--border:#e6e9ef;--shadow:0 10px 30px rgba(0,0,0,.12)}
+      *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+      html{font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;scroll-behavior:smooth;height:100%}
+      body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;height:100%;overflow-x:hidden;will-change:auto}
+      .container{width:min(1100px,92%);margin:0 auto}
+      .site-header{position:sticky;top:0;z-index:50;background:rgba(10,13,18,.6);backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+      .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+      .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);font-weight:700;letter-spacing:.2px}
+      .brand-mark{font-size:22px;background:linear-gradient(120deg,var(--brand),var(--brand-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+      .brand-text{font-size:18px}
+      .header-actions{display:flex;align-items:center;gap:10px}
+      .search{position:relative}
+      .search input{width:240px;max-width:52vw;padding:10px 32px 10px 12px;border-radius:12px;border:1px solid var(--border);background:var(--panel);color:var(--text);outline:none;box-shadow:var(--shadow)}
+      .search .kbd{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--muted);border:1px solid var(--border);padding:2px 6px;border-radius:6px}
+      .btn{display:inline-block;padding:10px 12px;border-radius:10px;background:var(--panel);border:1px solid var(--border);color:var(--text);text-decoration:none;cursor:pointer;transition:all 0.2s ease;font-size:14px;font-weight:500}
+      .btn:hover{background:var(--brand);color:white;transform:translateY(-1px)}
+      .surah-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:24px}
+      .surah-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:20px;transition:all 0.2s ease;cursor:pointer}
+      .surah-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:var(--brand)}
+      .surah-number{font-size:1.2rem;font-weight:700;color:var(--brand);margin-bottom:8px}
+      .surah-name{font-size:1.1rem;font-weight:600;color:var(--text);margin-bottom:4px}
+      .surah-meta{font-size:0.9rem;color:var(--muted)}
+      .loader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999}
+      .loader-text{font-size:2rem;color:var(--brand);margin-top:20px;animation:pulse 2s infinite}
+      @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+      @media (max-width:768px){.container{padding:0 16px}.header-inner{flex-wrap:wrap}.search input{width:100%}.surah-list{grid-template-columns:1fr}}
+    </style>
+    
+    <!-- Primary Meta Tags - Optimized for SEO -->
     <title>Тафсири осонбаён - Коран на таджикском языке | Куръон бо забони точики</title>
     <meta name="title" content="Тафсири осонбаён - Коран на таджикском языке | Куръон бо забони точики">
     <meta name="description" content="Читайте Священный Коран на таджикском языке с простым тафсиром. Тафсири осонбаён - лучший онлайн ресурс для изучения Куръона на точики. Все 114 сур с переводом и толкованием.">
@@ -13,6 +50,15 @@
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="googlebot" content="index, follow">
     <meta name="bingbot" content="index, follow">
+    <meta name="theme-color" content="#22c1c3">
+    <meta name="msapplication-TileColor" content="#22c1c3">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Тафсири осонбаён">
+    <meta name="application-name" content="Тафсири осонбаён">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -50,6 +96,35 @@
     <link rel="alternate" hreflang="tg" href="https://tafsiri-osonbayon.com/?lang=tg">
     <link rel="alternate" hreflang="en" href="https://tafsiri-osonbayon.com/?lang=en">
     <link rel="alternate" hreflang="x-default" href="https://tafsiri-osonbayon.com/">
+    
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Тафсири осонбаён",
+      "alternateName": "Tafsiri Osonbayon",
+      "url": "https://tafsiri-osonbayon.com",
+      "description": "Читайте Священный Коран на таджикском языке с простым тафсиром. Все 114 сур с переводом и толкованием.",
+      "inLanguage": ["tg", "ru", "en"],
+      "publisher": {
+        "@type": "Organization",
+        "name": "Тафсири осонбаён",
+        "url": "https://tafsiri-osonbayon.com"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://tafsiri-osonbayon.com/?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "name": "Суры Корана",
+        "description": "Все 114 сур Священного Корана с переводом на таджикский язык",
+        "numberOfItems": 114
+      }
+    }
+    </script>
     
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -166,7 +241,7 @@
                 <a id="continueGo" class="btn arrow" href="#" aria-label="Продолжить чтение Корана" itemprop="url">➔</a>
             </div>
             <div class="surah-toolbar">
-                <h2 data-i18n="surah_list" itemprop="name">Список сур Корана на таджикском языке</h2>
+                <h2 data-i18n="surah_list" itemprop="name">Список сур</h2>
                 <div class="legend">
                     <span class="pill" data-i18n="total">Всего: <b id="totalCount" itemprop="numberOfItems">114</b> сур</span>
                 </div>
@@ -220,9 +295,11 @@
         </div>
     </div>
 
-    <script src="assets/js/i18n.js"></script>
-    <script src="assets/js/analytics.js"></script>
-    <script src="assets/js/app.js"></script>
+    <!-- JavaScript - Load with defer for performance -->
+    <script src="assets/js/performance.js" defer></script>
+    <script src="assets/js/i18n.js" defer></script>
+    <script src="assets/js/analytics.js" defer></script>
+    <script src="assets/js/app.js" defer></script>
 </body>
 </html>
 

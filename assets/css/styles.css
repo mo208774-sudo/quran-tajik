@@ -1,4 +1,4 @@
-/* Root Theme */
+/* Root Theme - Optimized for performance */
 :root {
   --bg: #0b0e13;
   --panel: #121722;
@@ -10,6 +10,7 @@
   --border: #1f2430;
   --shadow: 0 10px 30px rgba(0,0,0,.25);
 }
+
 [data-theme="light"] {
   --bg: #ffffff;
   --panel: #f5f7fb;
@@ -22,16 +23,30 @@
   --shadow: 0 10px 30px rgba(0,0,0,.12);
 }
 
-* { box-sizing: border-box; }
-html, body { height: 100%; }
+/* Reset and base styles - optimized */
+*, *::before, *::after { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+html { 
+  font-size: 16px; 
+  line-height: 1.6; 
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  height: 100%;
+}
+
 body {
-  margin: 0;
-  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;
-  background: radial-gradient(1200px 600px at 10% -10%, rgba(34,193,195,.08), transparent 60%),
-              radial-gradient(1000px 600px at 110% -20%, rgba(63,81,181,.10), transparent 60%),
-              var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--bg);
   color: var(--text);
   line-height: 1.6;
+  height: 100%;
+  overflow-x: hidden;
+  will-change: auto;
 }
 
 .container { width: min(1100px, 92%); margin: 0 auto; }
