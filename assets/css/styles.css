@@ -156,6 +156,25 @@ body {
 .progress-fill { height: 100%; background: linear-gradient(90deg, var(--brand), var(--brand-2)); border-radius: 3px; width: 0%; transition: width 0.3s ease; will-change: width; }
 .progress-text { color: var(--text); font-size: 16px; font-weight: 600; text-align: center; }
 @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+/* Mobile loader adjustments */
+@media (max-width: 900px) {
+  .loader-spinner { 
+    font-size: 60px; 
+    margin: 0 auto 20px; 
+  }
+  .progress-container { width: 160px; }
+  .progress-text { font-size: 14px; }
+}
+
+@media (max-width: 600px) {
+  .loader-spinner { 
+    font-size: 50px; 
+    margin: 0 auto 16px; 
+  }
+  .progress-container { width: 140px; }
+  .progress-text { font-size: 13px; }
+}
 @keyframes float { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-10px) scale(1.05); } }
 .surah-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
 .legend .pill { background: var(--panel); border: 1px solid var(--border); color: var(--muted); padding: 6px 10px; border-radius: 999px; }
