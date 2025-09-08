@@ -76,7 +76,30 @@ body {
 .hero { text-align: center; padding: 60px 0 30px; }
 .hero h1 { font-size: clamp(28px, 4vw, 46px); margin: 0 0 8px; letter-spacing: .3px; }
 .hero .sub { color: var(--muted); margin: 0 0 18px; }
-.hero .ayah { margin: 0 auto 18px; max-width: 800px; color: var(--text); background: linear-gradient(180deg, rgba(45,212,191,.12), transparent 70%); border: 1px solid var(--border); padding: 10px 14px; border-radius: 12px; box-shadow: var(--shadow); }
+.hero .ayah { 
+  margin: 0 auto 18px; 
+  max-width: 800px; 
+  color: var(--text); 
+  background: var(--panel); 
+  border: 1px solid var(--border); 
+  padding: 20px 24px; 
+  border-radius: 16px; 
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  font-size: 18px;
+  line-height: 1.6;
+  font-style: italic;
+  position: relative;
+  overflow: hidden;
+}
+.hero .ayah::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--brand), var(--brand-2));
+}
 .cta { display: inline-block; background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #fff; text-decoration: none; padding: 12px 18px; border-radius: 12px; font-weight: 600; box-shadow: var(--shadow); }
 
 /* Surah list */
@@ -405,6 +428,11 @@ body {
   .info-icon { font-size: 0; }
   .info-icon::before { font-size: 18px; }
   .brand-mark { font-size: 16px; }
+  .hero .ayah { 
+    padding: 16px 20px; 
+    font-size: 16px; 
+    margin: 0 auto 16px; 
+  }
   .lang-select { 
     appearance: none; 
     background-image: none;
@@ -432,6 +460,11 @@ body {
   .info-icon { font-size: 0; }
   .info-icon::before { font-size: 18px; }
   .brand-mark { font-size: 14px; }
+  .hero .ayah { 
+    padding: 14px 18px; 
+    font-size: 15px; 
+    margin: 0 auto 14px; 
+  }
   .lang-select { 
     appearance: none; 
     background-image: none;
