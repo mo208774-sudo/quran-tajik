@@ -11,13 +11,23 @@
   const toast = document.getElementById('toast')
   const loader = document.getElementById('loader')
   
-  // Audio player elements
+  // Audio player elements - Desktop
   const compactAudioPlayer = document.getElementById('compactAudioPlayer')
   const playPauseBtn = document.getElementById('playPauseBtn')
   const reciterSelect = document.getElementById('reciterSelect')
   const audioProgress = document.getElementById('audioProgress')
   const currentTime = document.getElementById('currentTime')
   const duration = document.getElementById('duration')
+  
+  // Audio player elements - Mobile
+  const compactAudioPlayerMobile = document.getElementById('compactAudioPlayerMobile')
+  const playPauseBtnMobile = document.getElementById('playPauseBtnMobile')
+  const reciterSelectMobile = document.getElementById('reciterSelectMobile')
+  const audioProgressMobile = document.getElementById('audioProgressMobile')
+  const currentTimeMobile = document.getElementById('currentTimeMobile')
+  const durationMobile = document.getElementById('durationMobile')
+  
+  // Common elements
   const progressFill = document.getElementById('progressFill')
   const progressText = document.getElementById('progressText')
   
@@ -342,20 +352,39 @@
   }
 
   function populateReciterSelect() {
-    if (!reciterSelect || !audioData) return
+    if (!audioData) return
     
-    reciterSelect.innerHTML = '<option value="" data-i18n="select_reciter">Выберите хафиза</option>'
+    // Populate desktop selector
+    if (reciterSelect) {
+      reciterSelect.innerHTML = '<option value="" data-i18n="select_reciter">Выберите хафиза</option>'
+      
+      Object.keys(audioData).forEach(key => {
+        const reciter = audioData[key]
+        const option = document.createElement('option')
+        option.value = key
+        option.textContent = reciter.reciter
+        if (key === defaultReciter) {
+          option.selected = true
+        }
+        reciterSelect.appendChild(option)
+      })
+    }
     
-    Object.keys(audioData).forEach(key => {
-      const reciter = audioData[key]
-      const option = document.createElement('option')
-      option.value = key
-      option.textContent = reciter.reciter
-      if (key === defaultReciter) {
-        option.selected = true
-      }
-      reciterSelect.appendChild(option)
-    })
+    // Populate mobile selector
+    if (reciterSelectMobile) {
+      reciterSelectMobile.innerHTML = '<option value="" data-i18n="select_reciter">Выберите хафиза</option>'
+      
+      Object.keys(audioData).forEach(key => {
+        const reciter = audioData[key]
+        const option = document.createElement('option')
+        option.value = key
+        option.textContent = reciter.reciter
+        if (key === defaultReciter) {
+          option.selected = true
+        }
+        reciterSelectMobile.appendChild(option)
+      })
+    }
     
     // Auto-select default reciter
     if (defaultReciter && audioData[defaultReciter]) {
@@ -374,14 +403,17 @@
     if (!audio) return
 
     audio.addEventListener('loadedmetadata', () => {
-      duration.textContent = formatTime(audio.duration)
+      if (duration) duration.textContent = formatTime(audio.duration)
+      if (durationMobile) durationMobile.textContent = formatTime(audio.duration)
     })
 
     audio.addEventListener('timeupdate', () => {
       if (audio.duration) {
         const progress = (audio.currentTime / audio.duration) * 100
-        audioProgress.style.width = `${progress}%`
-        currentTime.textContent = formatTime(audio.currentTime)
+        if (audioProgress) audioProgress.style.width = `${progress}%`
+        if (audioProgressMobile) audioProgressMobile.style.width = `${progress}%`
+        if (currentTime) currentTime.textContent = formatTime(audio.currentTime)
+        if (currentTimeMobile) currentTimeMobile.textContent = formatTime(audio.currentTime)
       }
     })
 
@@ -403,17 +435,32 @@
   }
 
   function updatePlayPauseButton() {
-    if (!playPauseBtn) return
+    // Update desktop button
+    if (playPauseBtn) {
+      const playIcon = playPauseBtn.querySelector('.play-icon')
+      const pauseIcon = playPauseBtn.querySelector('.pause-icon')
+      
+      if (isPlaying) {
+        if (playIcon) playIcon.style.display = 'none'
+        if (pauseIcon) pauseIcon.style.display = 'inline'
+      } else {
+        if (playIcon) playIcon.style.display = 'inline'
+        if (pauseIcon) pauseIcon.style.display = 'none'
+      }
+    }
     
-    const playIcon = playPauseBtn.querySelector('.play-icon')
-    const pauseIcon = playPauseBtn.querySelector('.pause-icon')
-    
-    if (isPlaying) {
-      playIcon.style.display = 'none'
-      pauseIcon.style.display = 'inline'
-    } else {
-      playIcon.style.display = 'inline'
-      pauseIcon.style.display = 'none'
+    // Update mobile button
+    if (playPauseBtnMobile) {
+      const playIcon = playPauseBtnMobile.querySelector('.play-icon')
+      const pauseIcon = playPauseBtnMobile.querySelector('.pause-icon')
+      
+      if (isPlaying) {
+        if (playIcon) playIcon.style.display = 'none'
+        if (pauseIcon) pauseIcon.style.display = 'inline'
+      } else {
+        if (playIcon) playIcon.style.display = 'inline'
+        if (pauseIcon) pauseIcon.style.display = 'none'
+      }
     }
   }
 
@@ -439,17 +486,25 @@
     currentReciter = reciter
     audio.src = reciter.url
     
-    // Show compact audio player
+    // Show compact audio player - Desktop
     if (compactAudioPlayer) {
       compactAudioPlayer.style.display = 'flex'
+    }
+    
+    // Show compact audio player - Mobile
+    if (compactAudioPlayerMobile) {
+      compactAudioPlayerMobile.style.display = 'flex'
     }
     
     // Reset player state
     isPlaying = false
     updatePlayPauseButton()
-    audioProgress.style.width = '0%'
-    currentTime.textContent = '0:00'
-    duration.textContent = '0:00'
+    if (audioProgress) audioProgress.style.width = '0%'
+    if (audioProgressMobile) audioProgressMobile.style.width = '0%'
+    if (currentTime) currentTime.textContent = '0:00'
+    if (currentTimeMobile) currentTimeMobile.textContent = '0:00'
+    if (duration) duration.textContent = '0:00'
+    if (durationMobile) durationMobile.textContent = '0:00'
   }
 
 
@@ -550,7 +605,7 @@
       }
     })
     
-    // Audio player event listeners
+    // Audio player event listeners - Desktop
     if (playPauseBtn) {
       playPauseBtn.addEventListener('click', togglePlayPause)
     }
@@ -561,9 +616,34 @@
       })
     }
     
-    // Progress bar click to seek
+    // Audio player event listeners - Mobile
+    if (playPauseBtnMobile) {
+      playPauseBtnMobile.addEventListener('click', togglePlayPause)
+    }
+    
+    if (reciterSelectMobile) {
+      reciterSelectMobile.addEventListener('change', (e) => {
+        selectReciter(e.target.value)
+      })
+    }
+    
+    // Progress bar click to seek - Desktop
     if (audioProgress) {
       audioProgress.addEventListener('click', (e) => {
+        if (!audio || !audio.duration) return
+        
+        const rect = e.target.getBoundingClientRect()
+        const clickX = e.clientX - rect.left
+        const width = rect.width
+        const seekTime = (clickX / width) * audio.duration
+        
+        audio.currentTime = seekTime
+      })
+    }
+    
+    // Progress bar click to seek - Mobile
+    if (audioProgressMobile) {
+      audioProgressMobile.addEventListener('click', (e) => {
         if (!audio || !audio.duration) return
         
         const rect = e.target.getBoundingClientRect()

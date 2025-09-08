@@ -46,39 +46,8 @@
                 <h1 id="surahName" class="surah-title">Surah</h1>
             </div>
             <div class="header-actions">
-                <button id="themeToggle" class="icon-btn" aria-label="Toggle theme" title="Theme">
-                    <span class="icon sun" aria-hidden="true"></span>
-                    <span class="icon moon" aria-hidden="true"></span>
-                </button>
-                <select id="languageSelect" class="lang-select" aria-label="Language">
-                    <option value="tg" selected>Тоҷикӣ</option>
-                    <option value="ru">Русский</option>
-                    <option value="en">English</option>
-                </select>
-                <div class="info-menu">
-                    <button id="infoToggle" class="info-toggle" aria-label="Information">
-                        <span class="info-text" data-i18n="info">Информация</span>
-                        <span class="info-icon">ℹ️</span>
-                    </button>
-                    <div id="infoDropdown" class="info-dropdown">
-                        <a href="attention.html" data-i18n="attention">Таваҷҷӯҳ</a>
-                        <a href="author-preface.html" data-i18n="author_preface">Пешгуфтори муаллиф</a>
-                        <a href="editor-preface.html" data-i18n="editor_preface">Пешгуфтори мухаррир</a>
-                        <a href="quran-collection.html" data-i18n="quran_collection">Чамъ кардани Куръон</a>
-                        <a href="istiaza-basmala.html" data-i18n="istiaza_basmala">Истиъоза ва басмала</a>
-                        <a href="glossary.html" data-i18n="glossary">Фехрести истифодашуда</a>
-                        <a href="license.html" data-i18n="license">Рухсатнома</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main class="container">
-
-        <section class="viewer">
-            <div class="viewer-header">
-                <div class="viewer-actions">
+                <!-- Desktop Audio Controls -->
+                <div class="desktop-audio-controls">
                     <!-- Reciter Selector -->
                     <div class="reciter-selector">
                         <select id="reciterSelect" class="reciter-select">
@@ -98,11 +67,40 @@
                         </div>
                         <div class="audio-time" id="duration">0:00</div>
                     </div>
-                    
-                    <button class="btn icon-btn" id="fullscreenBtn" aria-label="Fullscreen" title="Fullscreen">⤢</button>
-                    <button class="btn icon-btn" id="savePageBtn" aria-label="Save Page" title="Save Page">💾</button>
+                </div>
+                
+                <button class="btn icon-btn" id="fullscreenBtn" aria-label="Fullscreen" title="Fullscreen">⤢</button>
+                <button class="btn icon-btn" id="savePageBtn" aria-label="Save Page" title="Save Page">💾</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <section class="viewer">
+            <!-- Mobile Audio Controls -->
+            <div class="mobile-audio-controls">
+                <!-- Reciter Selector -->
+                <div class="reciter-selector">
+                    <select id="reciterSelectMobile" class="reciter-select">
+                        <option value="" data-i18n="select_reciter">Выберите хафиза</option>
+                    </select>
+                </div>
+                
+                <!-- Compact Audio Player -->
+                <div class="compact-audio-player" id="compactAudioPlayerMobile" style="display: none;">
+                    <button class="audio-btn compact-play-btn" id="playPauseBtnMobile" aria-label="Play/Pause">
+                        <span class="play-icon">▶</span>
+                        <span class="pause-icon" style="display: none;">⏸</span>
+                    </button>
+                    <div class="audio-time" id="currentTimeMobile">0:00</div>
+                    <div class="audio-progress-bar">
+                        <div class="progress-fill" id="audioProgressMobile"></div>
+                    </div>
+                    <div class="audio-time" id="durationMobile">0:00</div>
                 </div>
             </div>
+            
             <div id="pdfContainer" class="pdf-container" aria-label="PDF"></div>
         </section>
     </main>
