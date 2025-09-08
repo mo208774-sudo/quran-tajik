@@ -53,8 +53,104 @@
     if (nameEl) nameEl.textContent = `${s.n || num}. ${name}`
     if (titleEl) titleEl.textContent = `${s.n || num}. ${name}`
     if (metaEl) metaEl.textContent = pdfPath().split('/').slice(-1)[0]
+    
+    // Update SEO meta tags dynamically
+    updateSEOMeta(s, name)
+    
+    // Track surah view
+    if (window.analytics) {
+      window.analytics.trackSurahRead(num, name, 1)
+    }
+    
     if (window['pdfjsLib']) renderWithPdfJs()
     else renderWithIframe()
+  }
+
+  function updateSEOMeta(surah, name){
+    const lang = currentLang()
+    const surahNum = surah.n || num
+    
+    // Generate SEO-optimized content
+    const titleRu = `Сура ${name} - Коран на таджикском языке | Тафсири осонбаён`
+    const titleTg = `Сура ${name} - Қуръон бо забони тоҷикӣ | Тафсири осонбаён`
+    const titleEn = `Surah ${surah.a} - Quran in Tajik Language | Tafsiri Osonbayon`
+    
+    const descRu = `Читайте суру ${name} на таджикском языке с тафсиром. Сура ${surahNum} Корана с переводом и толкованием на точики.`
+    const descTg = `Сура ${name}-ро бо забони тоҷикӣ бо тафсир хонед. Сура ${surahNum} Қуръон бо тарҷума ва тафсир.`
+    const descEn = `Read Surah ${surah.a} in Tajik language with tafsir. Surah ${surahNum} of Quran with translation and commentary.`
+    
+    const keywordsRu = `сура ${name.toLowerCase()}, коран на таджикском, куръон бо забони точики, тафсири осонбаён, сура ${surahNum}, коран суры, коран аяты, коран тафсир, коран толкование`
+    const keywordsTg = `сура ${name.toLowerCase()}, қуръон бо забони тоҷикӣ, тафсири осонбаён, сура ${surahNum}, қуръон сураҳо, қуръон оятҳо, қуръон тафсир`
+    const keywordsEn = `surah ${surah.a.toLowerCase()}, quran in tajik, tafsiri osonbayon, surah ${surahNum}, quran surahs, quran verses, quran tafsir`
+    
+    // Update title
+    const title = lang === 'tg' ? titleTg : (lang === 'en' ? titleEn : titleRu)
+    document.title = title
+    if (document.getElementById('pageTitle')) document.getElementById('pageTitle').content = title
+    
+    // Update description
+    const description = lang === 'tg' ? descTg : (lang === 'en' ? descEn : descRu)
+    const descMeta = document.querySelector('meta[name="description"]')
+    if (descMeta) descMeta.content = description
+    if (document.getElementById('pageDescription')) document.getElementById('pageDescription').content = description
+    
+    // Update keywords
+    const keywords = lang === 'tg' ? keywordsTg : (lang === 'en' ? keywordsEn : keywordsRu)
+    const keywordsMeta = document.querySelector('meta[name="keywords"]')
+    if (keywordsMeta) keywordsMeta.content = keywords
+    if (document.getElementById('pageKeywords')) document.getElementById('pageKeywords').content = keywords
+    
+    // Update Open Graph
+    if (document.getElementById('ogTitle')) document.getElementById('ogTitle').content = title
+    if (document.getElementById('ogDescription')) document.getElementById('ogDescription').content = description
+    
+    // Update canonical URL
+    const canonicalUrl = `https://tafsiri-osonbayon.com/surah.html?num=${surahNum}`
+    if (document.getElementById('canonicalUrl')) document.getElementById('canonicalUrl').href = canonicalUrl
+    if (document.getElementById('ogUrl')) document.getElementById('ogUrl').content = canonicalUrl
+    
+    // Update structured data
+    updateStructuredData(surah, name, title, description)
+  }
+
+  function updateStructuredData(surah, name, title, description){
+    const structuredData = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": title,
+      "description": description,
+      "author": {
+        "@type": "Organization",
+        "name": "Тафсири осонбаён"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Тафсири осонбаён",
+        "url": "https://tafsiri-osonbayon.com"
+      },
+      "datePublished": "2024-01-01",
+      "dateModified": new Date().toISOString().split('T')[0],
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": `https://tafsiri-osonbayon.com/surah.html?num=${surah.n || num}`
+      },
+      "about": {
+        "@type": "Thing",
+        "name": `Сура ${name}`,
+        "description": `Сура ${surah.n || num} Священного Корана`
+      },
+      "inLanguage": ["ru", "tg", "en"]
+    }
+    
+    // Remove existing structured data
+    const existingScript = document.querySelector('script[type="application/ld+json"]')
+    if (existingScript) existingScript.remove()
+    
+    // Add new structured data
+    const script = document.createElement('script')
+    script.type = 'application/ld+json'
+    script.textContent = JSON.stringify(structuredData)
+    document.head.appendChild(script)
   }
 
   function storageKey(){
@@ -72,6 +168,12 @@
     if (!Number.isFinite(page) || page < 1) return
     localStorage.setItem(storageKey(), String(page))
     localStorage.setItem(`${storageKey()}:ts`, String(Date.now()))
+    
+    // Track page save event
+    if (window.analytics) {
+      const surahName = getName(s)
+      window.analytics.trackPageSave(num, surahName, page)
+    }
   }
 
   function openFullscreen(){

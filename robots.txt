@@ -1,0 +1,32 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://tafsiri-osonbayon.com/sitemap.xml
+
+# Crawl-delay для уважительного отношения к серверу
+Crawl-delay: 1
+
+# Разрешаем индексацию всех страниц
+Allow: /surah.html
+Allow: /assets/
+Allow: /?lang=
+
+# Блокируем служебные файлы
+Disallow: /.vscode/
+Disallow: /README.md
+Disallow: /.git/
+Disallow: /node_modules/
+
+# Специальные директивы для поисковых систем
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+# Дополнительные директивы для лучшей индексации
+Host: https://tafsiri-osonbayon.com

@@ -140,13 +140,40 @@
   function render(list){
     if (!grid) return
     grid.innerHTML = ''
-    list.forEach(s => {
+    list.forEach((s, index) => {
+      const wrapper = document.createElement('div')
+      wrapper.className = 'surah-card-wrapper'
+      wrapper.setAttribute('itemscope', '')
+      wrapper.setAttribute('itemtype', 'https://schema.org/ListItem')
+      
+      const position = document.createElement('meta')
+      position.setAttribute('itemprop', 'position')
+      position.content = index + 1
+      wrapper.appendChild(position)
+      
       const a = document.createElement('a')
       a.href = `surah.html?num=${s.n}`
       a.className = 'card'
       a.setAttribute('data-num', s.n)
-      a.innerHTML = `<span class="badge">${s.n}</span><div><div>${titleFor(s)}</div><div class="meta">${s.a}</div></div>`
-      grid.appendChild(a)
+      a.setAttribute('itemscope', '')
+      a.setAttribute('itemtype', 'https://schema.org/Article')
+      a.setAttribute('aria-label', `Читать суру ${titleFor(s)} на таджикском языке`)
+      
+      const title = titleFor(s)
+      a.innerHTML = `
+        <span class="badge" itemprop="articleSection">${s.n}</span>
+        <div>
+          <div itemprop="headline">${title}</div>
+          <div class="meta" itemprop="alternativeHeadline">${s.a}</div>
+        </div>
+        <meta itemprop="description" content="Читайте суру ${title} на таджикском языке с тафсиром">
+        <meta itemprop="author" content="Тафсири осонбаён">
+        <meta itemprop="publisher" content="Тафсири осонбаён">
+        <meta itemprop="inLanguage" content="${currentLang()}">
+      `
+      
+      wrapper.appendChild(a)
+      grid.appendChild(wrapper)
     })
     if (totalCount) totalCount.textContent = String(list.length)
   }
@@ -159,6 +186,12 @@
       const hay = fields.join(' ').toLowerCase()
       return hay.includes(q)
     }).map(s => ({...s}))
+    
+    // Track search if query is not empty
+    if (q && window.analytics) {
+      window.analytics.trackSearch(q, data.length)
+    }
+    
     render(data)
   }
 
