@@ -8,6 +8,8 @@
   const clearContinue = document.getElementById('clearContinue')
   const contMeta = document.getElementById('continueMeta')
   const loader = document.getElementById('loader')
+  const progressFill = document.getElementById('progressFill')
+  const progressText = document.getElementById('progressText')
 
   const SURAHS = [
     { n:1,  a:'Al-Fatiha', ru:'Аль-Фатиха', tg:'Ал-Фотиҳа' },
@@ -164,17 +166,34 @@
     if (!loader) return
     if (show) {
       loader.classList.remove('hidden')
+      updateProgress(0)
     } else {
       loader.classList.add('hidden')
     }
+  }
+
+  function updateProgress(percent){
+    if (progressFill) progressFill.style.width = `${percent}%`
+    if (progressText) progressText.textContent = `${Math.round(percent)}%`
   }
 
   function init(){
     // Show loader initially
     showLoader(true)
     
-    // Simulate loading time for better UX
+    // Simulate loading with progress
+    let progress = 0
+    const interval = setInterval(() => {
+      progress += Math.random() * 15
+      if (progress > 90) progress = 90
+      updateProgress(progress)
+    }, 50)
+    
+    // Complete loading after 500ms
     setTimeout(() => {
+      clearInterval(interval)
+      updateProgress(100)
+      
       render(SURAHS)
       if (searchInput){
         document.addEventListener('keydown', e=>{ if (e.key === '/' && document.activeElement !== searchInput){ e.preventDefault(); searchInput.focus() }})
@@ -189,7 +208,7 @@
       document.addEventListener('visibilitychange', ()=>{ if (!document.hidden) updateContinue() })
       
       // Hide loader after everything is ready
-      showLoader(false)
+      setTimeout(() => showLoader(false), 200)
     }, 500)
   }
 

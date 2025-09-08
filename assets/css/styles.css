@@ -81,11 +81,13 @@ body {
 .loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 1; transition: opacity .3s ease; }
 .loader.hidden { opacity: 0; pointer-events: none; }
 .loader-content { text-align: center; }
-.loader-spinner { font-size: 80px; margin: 0 auto 20px; background: linear-gradient(45deg, var(--brand), var(--brand-2), #ff6b6b, #4ecdc4); background-size: 400% 400%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: gradientShift 2s ease-in-out infinite, float 3s ease-in-out infinite; }
-.loader-text { color: var(--text); font-size: 18px; font-weight: 600; animation: fadeInOut 2s ease-in-out infinite; }
+.loader-spinner { font-size: 80px; margin: 0 auto 30px; background: linear-gradient(45deg, var(--brand), var(--brand-2), #ff6b6b, #4ecdc4); background-size: 400% 400%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: gradientShift 2s ease-in-out infinite, float 3s ease-in-out infinite; }
+.progress-container { width: 200px; margin: 0 auto; }
+.progress-bar { width: 100%; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 10px; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--brand), var(--brand-2)); border-radius: 3px; width: 0%; transition: width 0.3s ease; }
+.progress-text { color: var(--text); font-size: 16px; font-weight: 600; text-align: center; }
 @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 @keyframes float { 0%, 100% { transform: translateY(0px) scale(1); } 50% { transform: translateY(-10px) scale(1.05); } }
-@keyframes fadeInOut { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
 .surah-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
 .legend .pill { background: var(--panel); border: 1px solid var(--border); color: var(--muted); padding: 6px 10px; border-radius: 999px; }
 .grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }

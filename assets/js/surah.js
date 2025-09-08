@@ -11,6 +11,8 @@
   const savePageBtn = document.getElementById('savePageBtn')
   const toast = document.getElementById('toast')
   const loader = document.getElementById('loader')
+  const progressFill = document.getElementById('progressFill')
+  const progressText = document.getElementById('progressText')
 
   const SURAHS = window.SURAHS || []
 
@@ -239,7 +241,7 @@
       const initial = pageFromHash() || getSavedPage()
       console.log('Initial page to scroll to:', initial)
 
-      // Render all pages
+      // Render all pages with progress tracking
       const renderPromises = []
       for (let i = 1; i <= numPages; i++){
         const page = await pdf.getPage(i)
@@ -256,12 +258,17 @@
         canvases.push(canvas)
 
         const ctx = canvas.getContext('2d')
-        const renderPromise = page.render({ canvasContext: ctx, viewport: scaledViewport }).promise
+        const renderPromise = page.render({ canvasContext: ctx, viewport: scaledViewport }).promise.then(() => {
+          // Update progress after each page renders
+          const progress = ((i / numPages) * 100)
+          updateProgress(progress)
+        })
         renderPromises.push(renderPromise)
       }
 
       // Wait for all pages to render
       await Promise.all(renderPromises)
+      updateProgress(100)
       console.log('All pages rendered')
 
       // scroll tracking
@@ -310,9 +317,15 @@
     if (!loader) return
     if (show) {
       loader.classList.remove('hidden')
+      updateProgress(0)
     } else {
       loader.classList.add('hidden')
     }
+  }
+
+  function updateProgress(percent){
+    if (progressFill) progressFill.style.width = `${percent}%`
+    if (progressText) progressText.textContent = `${Math.round(percent)}%`
   }
 
   function showToast(page){

@@ -63,7 +63,12 @@
     <div id="loader" class="loader">
         <div class="loader-content">
             <div class="loader-spinner">﷽</div>
-            <div class="loader-text" data-i18n="loading">Загрузка...</div>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="progress-text" id="progressText">0%</div>
+            </div>
         </div>
     </div>
     <script src="assets/js/i18n.js"></script>
