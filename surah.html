@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Surah • Quran Translate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" aria-hidden="true">﷽</span>
+                <span class="brand-text" data-i18n="brand">Тафсири осонбаён</span>
+            </a>
+            <div class="header-actions">
+                <button id="themeToggle" class="icon-btn" aria-label="Toggle theme" title="Theme">
+                    <span class="icon sun" aria-hidden="true"></span>
+                    <span class="icon moon" aria-hidden="true"></span>
+                </button>
+                <select id="languageSelect" class="lang-select" aria-label="Language">
+                    <option value="tg">Тоҷикӣ</option>
+                    <option value="ru" selected>Русский</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <nav class="crumbs">
+            <a href="index.html" data-i18n="home">Главная</a>
+            <span>/</span>
+            <span id="surahTitle">Surah</span>
+        </nav>
+
+        <section class="viewer">
+            <div class="viewer-header">
+                <div>
+                    <h1 id="surahName">Surah</h1>
+                    <p class="sub" id="surahMeta">PDF</p>
+                </div>
+                <div class="viewer-actions">
+                    <a class="btn" id="downloadLink" href="#" target="_blank" rel="noreferrer" data-i18n="download">Скачать PDF</a>
+                </div>
+            </div>
+            <iframe id="pdfFrame" title="PDF" class="pdf-frame" loading="lazy"></iframe>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <p>© <span id="year"></span> <span data-i18n="brand">Quran</span>.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/surah.js"></script>
+</body>
+</html>
+
+

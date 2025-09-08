@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quran Translate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%231b9aaa'/%3E%3Cpath d='M50 16c10.5 8.5 26 15.5 26 32 0 14.4-11.6 26-26 26S24 62.4 24 48c0-16.5 15.5-23.5 26-32z' fill='white'/%3E%3C/svg%3E" />
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" aria-hidden="true">﷽</span>
+                <span class="brand-text" data-i18n="brand">Тафсири осонбаён</span>
+            </a>
+
+            <div class="header-actions">
+                <div class="search">
+                    <input id="searchInput" type="search" placeholder="Поиск…" autocomplete="off">
+                    <span class="kbd" title="Press / to focus">/</span>
+                </div>
+                <button id="themeToggle" class="icon-btn" aria-label="Toggle theme" title="Theme">
+                    <span class="icon sun" aria-hidden="true"></span>
+                    <span class="icon moon" aria-hidden="true"></span>
+                </button>
+                <select id="languageSelect" class="lang-select" aria-label="Language">
+                    <option value="tg">Тоҷикӣ</option>
+                    <option value="ru" selected>Русский</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1 data-i18n="title">Священный Коран</h1>
+            <p class="ayah" data-i18n="verse_98_7">«Поистине, те, которые уверовали и совершали праведные деяния, они – лучшие творения» (98:7)</p>
+            <a class="cta" href="#surah-list" data-i18n="cta">Начать</a>
+        </section>
+
+        <section id="surah-list" class="surahs">
+            <div class="surah-toolbar">
+                <h2 data-i18n="surah_list">Список сур</h2>
+                <div class="legend">
+                    <span class="pill" data-i18n="total">Всего: <b id="totalCount">114</b></span>
+                </div>
+            </div>
+
+            <div id="surahGrid" class="grid"></div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <p>© <span id="year"></span> <span data-i18n="brand">Quran</span>. <span data-i18n="footer_note">Открытый учебный проект.</span></p>
+                <a href="https://github.com/" target="_blank" rel="noreferrer" class="muted">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/i18n.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
+
+
