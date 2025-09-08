@@ -11,6 +11,16 @@
   const savePageBtn = document.getElementById('savePageBtn')
   const toast = document.getElementById('toast')
   const loader = document.getElementById('loader')
+  
+  // Audio player elements
+  const compactAudioPlayer = document.getElementById('compactAudioPlayer')
+  const playPauseBtn = document.getElementById('playPauseBtn')
+  const muteBtn = document.getElementById('muteBtn')
+  const audioMenuBtn = document.getElementById('audioMenuBtn')
+  const reciterSelect = document.getElementById('reciterSelect')
+  const audioProgress = document.getElementById('audioProgress')
+  const currentTime = document.getElementById('currentTime')
+  const duration = document.getElementById('duration')
   const progressFill = document.getElementById('progressFill')
   const progressText = document.getElementById('progressText')
   
@@ -150,9 +160,17 @@
 
   const s = minimal[num] ? { n:num, ...minimal[num] } : FALLBACK
 
+  // Audio player state
+  let audio = null
+  let audioData = null
+  let isPlaying = false
+  let isMuted = false
+  let currentReciter = null
+  let defaultReciter = '1' // Mishary Rashid Al Afasy
+
   function pdfPath(){
     const lang = currentLang()
-    const dir = lang === 'en' ? 'en' : (lang === 'tg' ? 'tg' : 'ru')
+    const dir = lang === 'en' ? 'tg' : (lang === 'tg' ? 'tg' : 'tg')
     // PDF files are organized by language: assets/pdfs/{lang}/{num}.pdf
     return `assets/pdfs/${dir}/${num}.pdf`
   }
@@ -292,9 +310,15 @@
   }
 
   function savePage(page){
-    if (!Number.isFinite(page) || page < 1) return
-    localStorage.setItem(storageKey(), String(page))
-    localStorage.setItem(`${storageKey()}:ts`, String(Date.now()))
+    console.log('savePage called with page:', page, 'type:', typeof page)
+    if (!Number.isFinite(page) || page < 1) {
+      console.log('savePage: invalid page number, not saving')
+      return
+    }
+    const key = storageKey()
+    console.log('savePage: saving page', page, 'with key', key)
+    localStorage.setItem(key, String(page))
+    localStorage.setItem(`${key}:ts`, String(Date.now()))
     
     // Track page save event
     if (window.analytics) {
@@ -309,9 +333,163 @@
     else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen()
   }
 
+  // Audio player functions
+  async function loadAudioData() {
+    try {
+      const response = await fetch(`https://quranapi.pages.dev/api/audio/${num}.json`)
+      if (!response.ok) throw new Error('Failed to load audio data')
+      audioData = await response.json()
+      populateReciterSelect()
+    } catch (error) {
+      console.error('Error loading audio data:', error)
+      showToast('Ошибка загрузки аудио')
+    }
+  }
+
+  function populateReciterSelect() {
+    if (!reciterSelect || !audioData) return
+    
+    reciterSelect.innerHTML = '<option value="" data-i18n="select_reciter">Выберите хафиза</option>'
+    
+    Object.keys(audioData).forEach(key => {
+      const reciter = audioData[key]
+      const option = document.createElement('option')
+      option.value = key
+      option.textContent = reciter.reciter
+      if (key === defaultReciter) {
+        option.selected = true
+      }
+      reciterSelect.appendChild(option)
+    })
+    
+    // Auto-select default reciter
+    if (defaultReciter && audioData[defaultReciter]) {
+      selectReciter(defaultReciter)
+    }
+  }
+
+  function initAudioPlayer() {
+    if (!audio) {
+      audio = new Audio()
+      setupAudioEventListeners()
+    }
+  }
+
+  function setupAudioEventListeners() {
+    if (!audio) return
+
+    audio.addEventListener('loadedmetadata', () => {
+      duration.textContent = formatTime(audio.duration)
+    })
+
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration) {
+        const progress = (audio.currentTime / audio.duration) * 100
+        audioProgress.style.width = `${progress}%`
+        currentTime.textContent = formatTime(audio.currentTime)
+      }
+    })
+
+    audio.addEventListener('ended', () => {
+      isPlaying = false
+      updatePlayPauseButton()
+    })
+
+    audio.addEventListener('error', (e) => {
+      console.error('Audio error:', e)
+      showToast('Ошибка воспроизведения аудио')
+    })
+  }
+
+  function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60)
+    const secs = Math.floor(seconds % 60)
+    return `${mins}:${secs.toString().padStart(2, '0')}`
+  }
+
+  function updatePlayPauseButton() {
+    if (!playPauseBtn) return
+    
+    const playIcon = playPauseBtn.querySelector('.play-icon')
+    const pauseIcon = playPauseBtn.querySelector('.pause-icon')
+    
+    if (isPlaying) {
+      playIcon.style.display = 'none'
+      pauseIcon.style.display = 'inline'
+    } else {
+      playIcon.style.display = 'inline'
+      pauseIcon.style.display = 'none'
+    }
+  }
+
+  function togglePlayPause() {
+    if (!audio || !currentReciter) return
+
+    if (isPlaying) {
+      audio.pause()
+      isPlaying = false
+    } else {
+      audio.play()
+      isPlaying = true
+    }
+    updatePlayPauseButton()
+  }
+
+  function selectReciter(reciterId) {
+    if (!audioData || !reciterId) return
+
+    const reciter = audioData[reciterId]
+    if (!reciter) return
+
+    currentReciter = reciter
+    audio.src = reciter.url
+    
+    // Show compact audio player
+    if (compactAudioPlayer) {
+      compactAudioPlayer.style.display = 'flex'
+    }
+    
+    // Reset player state
+    isPlaying = false
+    updatePlayPauseButton()
+    audioProgress.style.width = '0%'
+    currentTime.textContent = '0:00'
+    duration.textContent = '0:00'
+  }
+
+  function toggleMute() {
+    if (!audio) return
+    
+    isMuted = !isMuted
+    audio.muted = isMuted
+    updateMuteButton()
+  }
+
+  function updateMuteButton() {
+    if (!muteBtn) return
+    
+    const unmuteIcon = muteBtn.querySelector('.unmute-icon')
+    const muteIcon = muteBtn.querySelector('.mute-icon')
+    
+    if (isMuted) {
+      unmuteIcon.style.display = 'none'
+      muteIcon.style.display = 'inline'
+    } else {
+      unmuteIcon.style.display = 'inline'
+      muteIcon.style.display = 'none'
+    }
+  }
+
+  function showAudioMenu() {
+    // For now, just show a simple alert
+    // In the future, this could show a dropdown with more options
+    alert('Меню аудио (в разработке)')
+  }
+
   function initControls(){
     if (fullscreenBtn) fullscreenBtn.addEventListener('click', openFullscreen)
     if (savePageBtn) savePageBtn.addEventListener('click', ()=>{
+      console.log('Save page button clicked')
       // determine current page based on PDF.js scroll or iframe hash
       let current = 1 // default fallback
       try {
@@ -327,10 +505,28 @@
             console.log('Current page from function:', current)
           } else {
             const f = cont.firstChild
-            const hash = f.contentWindow?.location?.hash || ''
-            console.log('Iframe hash:', hash)
-            const m = /page=(\d+)/.exec(hash)
-            if (m) current = Number(m[1])
+            try {
+              const hash = f.contentWindow?.location?.hash || ''
+              console.log('Iframe hash:', hash)
+              const m = /page=(\d+)/.exec(hash)
+              if (m) {
+                current = Number(m[1])
+                console.log('Current page from hash:', current)
+              } else {
+                // If no hash, try to get from iframe URL
+                const iframeSrc = f.src || ''
+                console.log('Iframe src:', iframeSrc)
+                const urlMatch = /page=(\d+)/.exec(iframeSrc)
+                if (urlMatch) {
+                  current = Number(urlMatch[1])
+                  console.log('Current page from URL:', current)
+                } else {
+                  console.log('No page found in iframe, using default 1')
+                }
+              }
+            } catch (e) {
+              console.log('Cannot access iframe content due to CORS, using default 1')
+            }
           }
         } else if (cont && cont.children.length > 0){
           console.log('Using PDF.js mode')
@@ -347,6 +543,11 @@
           
           for (let i = 0; i < cont.children.length; i++){
             const el = cont.children[i]
+            if (!el || el.offsetHeight === 0) {
+              console.log(`Page ${i+1}: not ready yet`)
+              continue
+            }
+            
             const pageTop = el.offsetTop
             const pageBottom = pageTop + el.offsetHeight
             
@@ -381,6 +582,46 @@
         showToast(current)
       }
     })
+    
+    // Audio player event listeners
+    if (playPauseBtn) {
+      playPauseBtn.addEventListener('click', togglePlayPause)
+    }
+    
+    if (muteBtn) {
+      muteBtn.addEventListener('click', toggleMute)
+    }
+    
+    if (audioMenuBtn) {
+      audioMenuBtn.addEventListener('click', showAudioMenu)
+    }
+    
+    if (reciterSelect) {
+      reciterSelect.addEventListener('change', (e) => {
+        selectReciter(e.target.value)
+      })
+    }
+    
+    // Progress bar click to seek
+    if (audioProgress) {
+      audioProgress.addEventListener('click', (e) => {
+        if (!audio || !audio.duration) return
+        
+        const rect = e.target.getBoundingClientRect()
+        const clickX = e.clientX - rect.left
+        const width = rect.width
+        const seekTime = (clickX / width) * audio.duration
+        
+        audio.currentTime = seekTime
+      })
+    }
+    
+    // Initialize audio player
+    initAudioPlayer()
+    
+    // Load audio data on page load
+    loadAudioData()
+    
     // also persist on lang change (page number kept)
     window.addEventListener('lang:change', render)
   }
@@ -395,7 +636,7 @@
     frame.className = 'pdf-frame'
     frame.loading = 'lazy'
     frame.title = 'PDF'
-    frame.src = `${src}#page=${page}`
+    frame.src = `${src}#page=${page}&toolbar=0&navpanes=0&scrollbar=0&statusbar=0&messages=0&scrollbar=0&view=FitH`
     
     // Add error handling
     frame.onerror = function() {
@@ -404,65 +645,46 @@
     
     frame.onload = function() {
       console.log('PDF iframe loaded successfully')
+      
+      // Start polling for page changes in iframe
+      startIframePagePolling(frame)
     }
     
     container.innerHTML = ''
     container.appendChild(frame)
-
-    // Store current page for manual save
-    let currentPage = page
+  }
+  
+  // Poll iframe for page changes
+  function startIframePagePolling(frame) {
+    let lastPage = 1
+    let pollCount = 0
+    const maxPolls = 100 // Stop after 100 attempts (about 10 seconds)
     
-    // Simple approach: let user manually set page via input
-    const pageInput = document.createElement('div')
-    pageInput.style.cssText = 'position:fixed;top:10px;right:10px;z-index:1000;background:var(--panel);padding:8px;border-radius:8px;border:1px solid var(--border);'
-    pageInput.innerHTML = `
-      <input type="number" id="manualPage" value="${page}" min="1" style="width:60px;padding:4px;margin-right:8px;border-radius:4px;border:1px solid var(--border);background:var(--bg);color:var(--text);">
-      <button onclick="goToPage()" style="padding:4px 8px;border-radius:4px;border:1px solid var(--border);background:var(--brand);color:white;cursor:pointer;">Go</button>
-    `
-    document.body.appendChild(pageInput)
-    
-    // Global function to go to page
-    window.goToPage = () => {
-      const input = document.getElementById('manualPage')
-      const newPage = Number(input.value)
-      if (newPage >= 1) {
-        currentPage = newPage
-        frame.src = `${src}#page=${newPage}`
-        savePage(newPage)
-        window.dispatchEvent(new CustomEvent('reading:updated', { detail: { num, page: newPage } }))
+    const pollInterval = setInterval(() => {
+      pollCount++
+      if (pollCount > maxPolls) {
+        clearInterval(pollInterval)
+        console.log('Stopped iframe polling after max attempts')
+        return
       }
-    }
-    
-    // Observe hash changes (when user uses built-in viewer next/prev, hash updates in some browsers)
-    // Poll location hash inside iframe as a pragmatic approach
-    let lastPage = page
-    const timer = setInterval(()=>{
+      
       try {
         const hash = frame.contentWindow?.location?.hash || ''
-        const match = /page=(\d+)/.exec(hash)
-        if (match){
-          const p = Number(match[1])
-          if (Number.isFinite(p) && p !== lastPage){
-            lastPage = p
-            currentPage = p
-            const input = document.getElementById('manualPage')
-            if (input) input.value = p
-            savePage(p)
-            // notify homepage to update banner instantly
-            window.dispatchEvent(new CustomEvent('reading:updated', { detail: { num, page: p } }))
-          }
+        const urlMatch = /page=(\d+)/.exec(hash)
+        const currentPage = urlMatch ? Number(urlMatch[1]) : 1
+        
+        if (currentPage !== lastPage) {
+          console.log('Iframe page changed from', lastPage, 'to', currentPage)
+          lastPage = currentPage
+          savePage(currentPage)
+          window.dispatchEvent(new CustomEvent('reading:updated', { detail: { num, page: currentPage } }))
         }
-      } catch(e) { /* cross-origin or not accessible yet: ignore */ }
-    }, 1000)
-
-    // Store current page in global variable for manual save
-    window.currentSurahPage = () => currentPage
-
-    // cleanup on unload
-    window.addEventListener('beforeunload', ()=> {
-      clearInterval(timer)
-      if (pageInput.parentNode) pageInput.parentNode.removeChild(pageInput)
-    })
+      } catch (e) {
+        // CORS error, stop polling
+        console.log('CORS error in iframe polling, stopping')
+        clearInterval(pollInterval)
+      }
+    }, 100) // Poll every 100ms
   }
 
   // Render via PDF.js, capture current page on scroll
@@ -480,7 +702,15 @@
       pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`
       console.log('Loading PDF document...')
       
-      const loadingTask = pdfjsLib.getDocument(src)
+      // Disable PDF.js toolbar and page numbers
+      const loadingTask = pdfjsLib.getDocument({
+        url: src,
+        disableAutoFetch: true,
+        disableStream: true,
+        disableRange: true,
+        cMapUrl: 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/cmaps/',
+        cMapPacked: true
+      })
       const pdf = await loadingTask.promise
       const numPages = pdf.numPages
       
@@ -524,18 +754,56 @@
 
       // scroll tracking
       function detect(){
-        const mid = container.scrollTop + container.clientHeight / 2
-        let current = 1
+        // Check if canvases are ready
+        if (!canvases || canvases.length === 0) {
+          console.log('Detect: canvases not ready yet')
+          return
+        }
+        
+        const scrollTop = container.scrollTop
+        const containerHeight = container.clientHeight
+        const viewportTop = scrollTop
+        const viewportBottom = scrollTop + containerHeight
+        
+        console.log('Detect: scrollTop=', scrollTop, 'containerHeight=', containerHeight, 'canvases=', canvases.length)
+        
+        // Find the page that is most visible in the viewport
+        let bestPage = 1
+        let maxVisibleArea = 0
+        
         for (let i = 0; i < canvases.length; i++){
           const el = canvases[i]
-          const top = el.offsetTop
-          const bottom = top + el.offsetHeight
-          if (mid >= top && mid <= bottom){ current = i+1; break }
+          if (!el || el.offsetHeight === 0) {
+            console.log(`Page ${i+1}: not ready yet`)
+            continue
+          }
+          
+          const pageTop = el.offsetTop
+          const pageBottom = pageTop + el.offsetHeight
+          
+          // Calculate visible area of this page
+          const visibleTop = Math.max(viewportTop, pageTop)
+          const visibleBottom = Math.min(viewportBottom, pageBottom)
+          const visibleArea = Math.max(0, visibleBottom - visibleTop)
+          
+          console.log(`Page ${i+1}: top=${pageTop}, bottom=${pageBottom}, visible=${visibleArea}`)
+          
+          if (visibleArea > maxVisibleArea) {
+            maxVisibleArea = visibleArea
+            bestPage = i + 1
+          }
         }
-        savePage(current)
-        window.dispatchEvent(new CustomEvent('reading:updated', { detail: { num, page: current } }))
+        
+        console.log('Auto-detected page:', bestPage, 'with visible area:', maxVisibleArea)
+        savePage(bestPage)
+        window.dispatchEvent(new CustomEvent('reading:updated', { detail: { num, page: bestPage } }))
       }
-      container.addEventListener('scroll', throttle(detect, 250))
+      
+      // Add scroll listener after a delay to ensure pages are rendered
+      setTimeout(() => {
+        container.addEventListener('scroll', throttle(detect, 250))
+        console.log('Scroll listener added')
+      }, 1000)
       
       // Now scroll to the target page after all rendering is complete
       const target = canvases[initial - 1]
@@ -545,6 +813,12 @@
       } else {
         console.log('No target found for page', initial)
       }
+      
+      // Wait a bit for scroll to complete, then detect current page
+      setTimeout(() => {
+        console.log('Running initial detect after scroll')
+        detect()
+      }, 500)
       
       // initial save
       savePage(initial)
@@ -648,5 +922,6 @@
     waitForPdfJs()
   })
 })()
+
 
 

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tg" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug PDF Page Detection</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug-info { background: #f0f0f0; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .pdf-container { height: 400px; overflow: auto; border: 1px solid #ccc; padding: 10px; }
+        .pdf-page { height: 300px; background: #fff; margin: 10px 0; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+    </style>
+</head>
+<body>
+    <h1>Debug PDF Page Detection</h1>
+    
+    <div class="debug-info">
+        <h3>Debug Information:</h3>
+        <div id="debugOutput">Loading...</div>
+    </div>
+    
+    <button onclick="testDetection()">Test Page Detection</button>
+    <button onclick="scrollToPage(2)">Scroll to Page 2</button>
+    <button onclick="scrollToPage(3)">Scroll to Page 3</button>
+    
+    <div id="pdfContainer" class="pdf-container">
+        <div class="pdf-page">Page 1</div>
+        <div class="pdf-page">Page 2</div>
+        <div class="pdf-page">Page 3</div>
+        <div class="pdf-page">Page 4</div>
+        <div class="pdf-page">Page 5</div>
+    </div>
+    
+    <script>
+        const container = document.getElementById('pdfContainer')
+        const debugOutput = document.getElementById('debugOutput')
+        
+        function updateDebug() {
+            const scrollTop = container.scrollTop
+            const containerHeight = container.clientHeight
+            const viewportTop = scrollTop
+            const viewportBottom = scrollTop + containerHeight
+            
+            let debug = `Scroll: ${scrollTop}, Height: ${containerHeight}<br>`
+            debug += `Viewport: ${viewportTop} to ${viewportBottom}<br><br>`
+            
+            let bestPage = 1
+            let maxVisibleArea = 0
+            
+            for (let i = 0; i < container.children.length; i++){
+                const el = container.children[i]
+                const pageTop = el.offsetTop
+                const pageBottom = pageTop + el.offsetHeight
+                
+                const visibleTop = Math.max(viewportTop, pageTop)
+                const visibleBottom = Math.min(viewportBottom, pageBottom)
+                const visibleArea = Math.max(0, visibleBottom - visibleTop)
+                
+                debug += `Page ${i+1}: top=${pageTop}, bottom=${pageBottom}, visible=${visibleArea}<br>`
+                
+                if (visibleArea > maxVisibleArea) {
+                    maxVisibleArea = visibleArea
+                    bestPage = i + 1
+                }
+            }
+            
+            debug += `<br><strong>Best Page: ${bestPage} (visible area: ${maxVisibleArea})</strong>`
+            debugOutput.innerHTML = debug
+        }
+        
+        function testDetection() {
+            updateDebug()
+        }
+        
+        function scrollToPage(pageNum) {
+            const target = container.children[pageNum - 1]
+            if (target) {
+                container.scrollTop = target.offsetTop
+                setTimeout(updateDebug, 100)
+            }
+        }
+        
+        container.addEventListener('scroll', updateDebug)
+        updateDebug()
+    </script>
+</body>
+</html>
