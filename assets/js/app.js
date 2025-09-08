@@ -10,6 +10,12 @@
   const loader = document.getElementById('loader')
   const progressFill = document.getElementById('progressFill')
   const progressText = document.getElementById('progressText')
+  
+  // New elements
+  const shareBtn = document.getElementById('shareBtn')
+  const addToHomeBtn = document.getElementById('addToHomeBtn')
+  const infoToggle = document.getElementById('infoToggle')
+  const infoDropdown = document.getElementById('infoDropdown')
 
   const SURAHS = [
     { n:1,  a:'Al-Fatiha', ru:'Аль-Фатиха', tg:'Ал-Фотиҳа' },
@@ -210,6 +216,17 @@
     if (progressText) progressText.textContent = `${Math.round(percent)}%`
   }
 
+  function showToast(message) {
+    const toast = document.getElementById('toast')
+    if (toast) {
+      toast.textContent = message
+      toast.classList.add('show')
+      setTimeout(() => {
+        toast.classList.remove('show')
+      }, 3000)
+    }
+  }
+
   function init(){
     // Show loader initially
     showLoader(true)
@@ -287,6 +304,73 @@
     `
     cont.hidden = false
   }
+
+
+  // Share functionality
+  function shareSite() {
+    const shareData = {
+      title: 'Аввалин сайти Тафсири Куръон бо забони точики',
+      text: 'Читайте Священный Коран на таджикском языке с простым тафсиром',
+      url: window.location.href
+    }
+    
+    if (navigator.share) {
+      navigator.share(shareData)
+    } else {
+      // Fallback: copy to clipboard
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        showToast('Ссылка скопирована в буфер обмена')
+      })
+    }
+  }
+
+  // Add to home screen
+  function addToHome() {
+    if ('serviceWorker' in navigator) {
+      // PWA installation
+      showToast('Функция добавления на главный экран будет доступна в PWA версии')
+    } else {
+      showToast('Ваш браузер не поддерживает эту функцию')
+    }
+  }
+
+
+  // Info menu functionality
+  function toggleInfoMenu() {
+    if (infoDropdown) {
+      infoDropdown.classList.toggle('show')
+    }
+  }
+
+  function closeInfoMenu() {
+    if (infoDropdown) {
+      infoDropdown.classList.remove('show')
+    }
+  }
+
+  // Event listeners
+
+  if (infoToggle) {
+    infoToggle.addEventListener('click', toggleInfoMenu)
+  }
+
+  if (infoDropdown) {
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!infoToggle.contains(e.target) && !infoDropdown.contains(e.target)) {
+        closeInfoMenu()
+      }
+    })
+  }
+
+  if (shareBtn) {
+    shareBtn.addEventListener('click', shareSite)
+  }
+
+  if (addToHomeBtn) {
+    addToHomeBtn.addEventListener('click', addToHome)
+  }
+
 
   // Initialize when DOM is ready
   if (document.readyState === 'loading') {

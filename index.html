@@ -121,6 +121,21 @@
                     <input id="searchInput" type="search" placeholder="Поиск…" autocomplete="off">
                     <span class="kbd" title="Press / to focus">/</span>
                 </div>
+                <div class="info-menu">
+                    <button id="infoToggle" class="info-toggle" aria-label="Information" title="Information">
+                        <span class="info-text" data-i18n="info">Информация</span>
+                        <span class="info-icon" aria-hidden="true">ℹ️</span>
+                    </button>
+                    <div id="infoDropdown" class="info-dropdown">
+                        <a href="attention.html" data-i18n="attention">Таваҷҷӯҳ</a>
+                        <a href="author-preface.html" data-i18n="author_preface">Пешгуфтори муаллиф</a>
+                        <a href="editor-preface.html" data-i18n="editor_preface">Пешгуфтори мухаррир</a>
+                        <a href="quran-collection.html" data-i18n="quran_collection">Чамъ кардани Куръон</a>
+                        <a href="istiaza-basmala.html" data-i18n="istiaza_basmala">Истиъоза ва басмала</a>
+                        <a href="glossary.html" data-i18n="glossary">Фехрести истифодашуда</a>
+                        <a href="license.html" data-i18n="license">Рухсатнома</a>
+                    </div>
+                </div>
                 <button id="themeToggle" class="icon-btn" aria-label="Toggle theme" title="Theme">
                     <span class="icon sun" aria-hidden="true"></span>
                     <span class="icon moon" aria-hidden="true"></span>
@@ -163,12 +178,35 @@
 
     <footer class="site-footer">
         <div class="container">
-            <div class="footer-grid">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 data-i18n="quick_links">Быстрые ссылки</h3>
+                    <div class="footer-links">
+                        <a href="about.html" data-i18n="about_developers">О разработчиках</a>
+                        <a href="contact.html" data-i18n="contact_us">Обратная связь</a>
+                        <a href="privacy.html" data-i18n="privacy_policy">Конфиденциальность</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 data-i18n="share_project">Поделиться проектом</h3>
+                    <div class="social-links">
+                        <a href="#" id="shareBtn" class="share-btn" data-i18n="share_site">Поделиться сайтом</a>
+                        <a href="#" id="addToHomeBtn" class="add-home-btn" data-i18n="add_to_home">Добавить на главный экран</a>
+                        <a href="#" class="telegram-link" data-i18n="telegram_channel">Наш Телеграм канал</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
                 <p>© <span id="year"></span> <span data-i18n="brand">Quran</span>. <span data-i18n="footer_note">Открытый учебный проект.</span></p>
-                <a href="https://github.com/" target="_blank" rel="noreferrer" class="muted">GitHub</a>
+                <div class="footer-links">
+                    <a href="https://github.com/" target="_blank" rel="noreferrer" class="muted">GitHub</a>
+                </div>
             </div>
         </div>
     </footer>
+
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <div id="loader" class="loader">

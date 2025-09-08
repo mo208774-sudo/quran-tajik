@@ -13,6 +13,10 @@
   const loader = document.getElementById('loader')
   const progressFill = document.getElementById('progressFill')
   const progressText = document.getElementById('progressText')
+  
+  // Info menu elements
+  const infoToggle = document.getElementById('infoToggle')
+  const infoDropdown = document.getElementById('infoDropdown')
 
   const SURAHS = window.SURAHS || []
 
@@ -149,7 +153,7 @@
   function pdfPath(){
     const lang = currentLang()
     const dir = lang === 'en' ? 'en' : (lang === 'tg' ? 'tg' : 'ru')
-    // Expect files like assets/pdfs/ru/1.pdf
+    // PDF files are organized by language: assets/pdfs/{lang}/{num}.pdf
     return `assets/pdfs/${dir}/${num}.pdf`
   }
 
@@ -175,8 +179,18 @@
       window.analytics.trackSurahRead(num, name, 1)
     }
     
-    if (window['pdfjsLib']) renderWithPdfJs()
-    else renderWithIframe()
+    // Debug info
+    console.log('Rendering surah:', num, 'PDF path:', pdfPath())
+    console.log('PDF.js available:', !!window['pdfjsLib'])
+    
+    // Render PDF
+    if (window['pdfjsLib']) {
+      console.log('Using PDF.js for rendering')
+      renderWithPdfJs()
+    } else {
+      console.log('Using iframe for rendering')
+      renderWithIframe()
+    }
   }
 
   function updateSEOMeta(surah, name){
@@ -375,11 +389,23 @@
   function renderWithIframe(){
     const src = pdfPath()
     const page = pageFromHash() || getSavedPage()
+    console.log('Iframe rendering - src:', src, 'page:', page)
+    
     const frame = document.createElement('iframe')
     frame.className = 'pdf-frame'
     frame.loading = 'lazy'
     frame.title = 'PDF'
     frame.src = `${src}#page=${page}`
+    
+    // Add error handling
+    frame.onerror = function() {
+      console.error('Error loading PDF:', src)
+    }
+    
+    frame.onload = function() {
+      console.log('PDF iframe loaded successfully')
+    }
+    
     container.innerHTML = ''
     container.appendChild(frame)
 
@@ -444,11 +470,21 @@
     showLoader(true)
     try {
       const src = pdfPath()
+      console.log('PDF.js rendering - src:', src)
+      
       const pdfjsLib = window['pdfjsLib']
+      if (!pdfjsLib) {
+        throw new Error('PDF.js library not loaded')
+      }
+      
       pdfjsLib.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js`
+      console.log('Loading PDF document...')
+      
       const loadingTask = pdfjsLib.getDocument(src)
       const pdf = await loadingTask.promise
       const numPages = pdf.numPages
+      
+      console.log('PDF loaded successfully, pages:', numPages)
       container.innerHTML = ''
       const canvases = []
 
@@ -515,6 +551,10 @@
       window.dispatchEvent(new CustomEvent('reading:updated', { detail: { num, page: initial } }))
     } catch (error) {
       console.error('Error rendering PDF:', error)
+      
+      // Fallback to iframe if PDF.js fails
+      console.log('Falling back to iframe rendering')
+      renderWithIframe()
     } finally {
       showLoader(false)
     }
@@ -556,7 +596,57 @@
     setTimeout(()=> toast.classList.remove('show'), 2000)
   }
 
-  document.addEventListener('DOMContentLoaded', ()=>{ render(); initControls(); })
+  // Info menu functionality
+  function toggleInfoMenu() {
+    if (infoDropdown) {
+      infoDropdown.classList.toggle('show')
+    }
+  }
+
+  function closeInfoMenu() {
+    if (infoDropdown) {
+      infoDropdown.classList.remove('show')
+    }
+  }
+
+  // Event listeners for info menu
+  if (infoToggle) {
+    infoToggle.addEventListener('click', toggleInfoMenu)
+  }
+
+  if (infoDropdown) {
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!infoToggle.contains(e.target) && !infoDropdown.contains(e.target)) {
+        closeInfoMenu()
+      }
+    })
+  }
+
+  // Wait for PDF.js to load before rendering
+  let pdfJsTimeout = 0
+  function waitForPdfJs() {
+    if (window['pdfjsLib']) {
+      console.log('PDF.js loaded, starting render')
+      render()
+      initControls()
+    } else {
+      pdfJsTimeout += 100
+      if (pdfJsTimeout > 5000) {
+        console.log('PDF.js failed to load after 5s, using iframe fallback')
+        render()
+        initControls()
+      } else {
+        console.log('PDF.js not loaded yet, retrying in 100ms')
+        setTimeout(waitForPdfJs, 100)
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{ 
+    console.log('DOM loaded, waiting for PDF.js...')
+    waitForPdfJs()
+  })
 })()
 
 
