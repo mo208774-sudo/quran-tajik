@@ -43,12 +43,12 @@
     { n:29, a:'Al-Ankabut', ru:'Аль-Анкабут', tg:'Ал-Анкабут' },
     { n:30, a:'Ar-Rum', ru:'Ар-Рум', tg:'Ар-Рум' },
     { n:31, a:'Luqman', ru:'Лукман', tg:'Луқмон' },
-    { n:32, a:'As-Sajdah', ru:'Ас-Саджда', tg:'Ас-Саҷда' },
+    { n:32, a:'As-Sajdah', ru:'Ас-Саджда', tg:'Ас-Саджда' },
     { n:33, a:'Al-Ahzab', ru:'Аль-Ахзаб', tg:'Ал-Аҳзоб' },
     { n:34, a:'Saba', ru:'Саба', tg:'Саба' },
     { n:35, a:'Fatir', ru:'Фатыр', tg:'Фотир' },
-    { n:36, a:'Ya-Sin', ru:'Йа-Син', tg:'Ёсин' },
-    { n:37, a:'As-Saffat', ru:'Ас-Саффат', tg:'Ас-Саффот' },
+    { n:36, a:'Ya-Sin', ru:'Йа Син', tg:'Ё Син' },
+    { n:37, a:'As-Saffat', ru:'Ас-Саффат', tg:'Ас-Саффат' },
     { n:38, a:'Sad', ru:'Сад', tg:'Сод' },
     { n:39, a:'Az-Zumar', ru:'Аз-Зумар', tg:'Аз-Зумар' },
     { n:40, a:'Ghafir', ru:'Гафир', tg:'Ғофир' },
@@ -56,79 +56,79 @@
     { n:42, a:'Ash-Shura', ru:'Аш-Шура', tg:'Аш-Шуро' },
     { n:43, a:'Az-Zukhruf', ru:'Аз-Зухруф', tg:'Аз-Зухруф' },
     { n:44, a:'Ad-Dukhan', ru:'Ад-Духан', tg:'Ад-Духон' },
-    { n:45, a:'Al-Jathiyah', ru:'Аль-Джасия', tg:'Ал-Ҷосия' },
-    { n:46, a:'Al-Ahqaf', ru:'Аль-Ахкаф', tg:'Ал-Аҳқоф' },
+    { n:45, a:'Al-Jathiyah', ru:'Аль-Джасия', tg:'Ал-Ҷасия' },
+    { n:46, a:'Al-Ahqaf', ru:'Аль-Ахкаф', tg:'Ал-Аҳқаф' },
     { n:47, a:'Muhammad', ru:'Мухаммад', tg:'Муҳаммад' },
     { n:48, a:'Al-Fath', ru:'Аль-Фатх', tg:'Ал-Фатҳ' },
     { n:49, a:'Al-Hujurat', ru:'Аль-Худжурат', tg:'Ал-Ҳуҷурот' },
     { n:50, a:'Qaf', ru:'Каф', tg:'Қоф' },
-    { n:51, a:'Adh-Dhariyat', ru:'Аз-Зарийат', tg:'Аз-Зориёт' },
+    { n:51, a:'Adh-Dhariyat', ru:'Аз-Зарият', tg:'Аз-Зариёт' },
     { n:52, a:'At-Tur', ru:'Ат-Тур', tg:'Ат-Тур' },
-    { n:53, a:'An-Najm', ru:'Ан-Наджм', tg:'Ан-Нажм' },
+    { n:53, a:'An-Najm', ru:'Ан-Наджм', tg:'Ан-Наҷм' },
     { n:54, a:'Al-Qamar', ru:'Аль-Камар', tg:'Ал-Қамар' },
     { n:55, a:'Ar-Rahman', ru:'Ар-Рахман', tg:'Ар-Раҳмон' },
     { n:56, a:'Al-Waqi`ah', ru:'Аль-Вакиа', tg:'Ал-Воқиа' },
     { n:57, a:'Al-Hadid', ru:'Аль-Хадид', tg:'Ал-Ҳадид' },
-    { n:58, a:'Al-Mujadila', ru:'Аль-Муджадиля', tg:'Ал-Муҷодила' },
+    { n:58, a:'Al-Mujadilah', ru:'Аль-Муджадила', tg:'Ал-Муҷадила' },
     { n:59, a:'Al-Hashr', ru:'Аль-Хашр', tg:'Ал-Ҳашр' },
-    { n:60, a:'Al-Mumtahanah', ru:'Аль-Мумтахина', tg:'Ал-Мумтаҳина' },
-    { n:61, a:'As-Saff', ru:'Ас-Сафф', tg:'Ас-Саф' },
-    { n:62, a:'Al-Jumu`ah', ru:'Аль-Джумуа', tg:'Ал-Ҷумъа' },
+    { n:60, a:'Al-Mumtahanah', ru:'Аль-Мумтахана', tg:'Ал-Мумтаҳана' },
+    { n:61, a:'As-Saff', ru:'Ас-Сафф', tg:'Ас-Сафф' },
+    { n:62, a:'Al-Jumu`ah', ru:'Аль-Джума', tg:'Ал-Ҷума' },
     { n:63, a:'Al-Munafiqun', ru:'Аль-Мунафикун', tg:'Ал-Мунафиқун' },
-    { n:64, a:'At-Taghabun', ru:'Ат-Тагабун', tg:'Ат-Тагабун' },
-    { n:65, a:'At-Talaq', ru:'Ат-Талак', tg:'Ат-Талоқ' },
+    { n:64, a:'At-Taghabun', ru:'Ат-Тагабун', tg:'Ат-Тағабун' },
+    { n:65, a:'At-Talaq', ru:'Ат-Таляк', tg:'Ат-Талақ' },
     { n:66, a:'At-Tahrim', ru:'Ат-Тахрим', tg:'Ат-Таҳрим' },
     { n:67, a:'Al-Mulk', ru:'Аль-Мульк', tg:'Ал-Мулк' },
     { n:68, a:'Al-Qalam', ru:'Аль-Калям', tg:'Ал-Қалам' },
     { n:69, a:'Al-Haqqah', ru:'Аль-Хакка', tg:'Ал-Ҳаққа' },
-    { n:70, a:"Al-Ma'arij", ru:'Аль-Маариж', tg:'Ал-Маориҷ' },
-    { n:71, a:'Nuh', ru:'Нух', tg:'Нӯҳ' },
+    { n:70, a:'Al-Ma`arij', ru:'Аль-Мааридж', tg:'Ал-Маориҷ' },
+    { n:71, a:'Nuh', ru:'Нух', tg:'Нуҳ' },
     { n:72, a:'Al-Jinn', ru:'Аль-Джинн', tg:'Ал-Ҷинн' },
     { n:73, a:'Al-Muzzammil', ru:'Аль-Муззаммиль', tg:'Ал-Муззаммил' },
     { n:74, a:'Al-Muddaththir', ru:'Аль-Муддассир', tg:'Ал-Муддассир' },
-    { n:75, a:'Al-Qiyamah', ru:'Аль-Кияма', tg:'Ал-Қиёмат' },
+    { n:75, a:'Al-Qiyamah', ru:'Аль-Кияма', tg:'Ал-Қияма' },
     { n:76, a:'Al-Insan', ru:'Аль-Инсан', tg:'Ал-Инсон' },
-    { n:77, a:'Al-Mursalat', ru:'Аль-Мурсалат', tg:'Ал-Мурсалот' },
-    { n:78, a:'An-Naba', ru:'Ан-Наба', tg:'Ан-Набо' },
-    { n:79, a:'An-Nazi`at', ru:'Ан-Назиат', tg:'Ан-Нозиот' },
-    { n:80, a:'Abasa', ru:'Абаса', tg:'Абаса' },
+    { n:77, a:'Al-Mursalat', ru:'Аль-Мурсалят', tg:'Ал-Мурсалят' },
+    { n:78, a:'An-Naba', ru:'Ан-Наба', tg:'Ан-Наба' },
+    { n:79, a:'An-Nazi`at', ru:'Ан-Назиат', tg:'Ан-Назиот' },
+    { n:80, a:'`Abasa', ru:'Абаса', tg:'Абаса' },
     { n:81, a:'At-Takwir', ru:'Ат-Таквир', tg:'Ат-Таквир' },
-    { n:82, a:'Al-Infitar', ru:'Аль-Инфитар', tg:'Ал-Инфитор' },
+    { n:82, a:'Al-Infitar', ru:'Аль-Инфитар', tg:'Ал-Инфитар' },
     { n:83, a:'Al-Mutaffifin', ru:'Аль-Мутаффифин', tg:'Ал-Мутаффифин' },
     { n:84, a:'Al-Inshiqaq', ru:'Аль-Иншикак', tg:'Ал-Иншиқоқ' },
-    { n:85, a:'Al-Buruj', ru:'Аль-Бурудж', tg:'Ал-Бурудж' },
-    { n:86, a:'At-Tariq', ru:'Ат-Тарик', tg:'Ат-Ториқ' },
-    { n:87, a:'Al-A`la', ru:'Аль-Аъля', tg:'Ал-Аъло' },
-    { n:88, a:'Al-Ghashiyah', ru:'Аль-Гашийа', tg:'Ал-Ғошия' },
-    { n:89, a:'Al-Fajr', ru:'Аль-Фаджр', tg:'Ал-Фажр' },
-    { n:90, a:'Al-Balad', ru:'Аль-Балад', tg:'Ал-Балад' },
+    { n:85, a:'Al-Buruj', ru:'Аль-Бурудж', tg:'Ал-Буруҷ' },
+    { n:86, a:'At-Tariq', ru:'Ат-Тарик', tg:'Ат-Тариқ' },
+    { n:87, a:'Al-A`la', ru:'Аль-Аля', tg:'Ал-Аъло' },
+    { n:88, a:'Al-Ghashiyah', ru:'Аль-Гашия', tg:'Ал-Ғошия' },
+    { n:89, a:'Al-Fajr', ru:'Аль-Фаджр', tg:'Ал-Фаҷр' },
+    { n:90, a:'Al-Balad', ru:'Аль-Баляд', tg:'Ал-Баляд' },
     { n:91, a:'Ash-Shams', ru:'Аш-Шамс', tg:'Аш-Шамс' },
-    { n:92, a:'Al-Layl', ru:'Аль-Лайл', tg:'Ал-Лайл' },
+    { n:92, a:'Al-Layl', ru:'Аль-Лайль', tg:'Ал-Лайл' },
     { n:93, a:'Ad-Duha', ru:'Ад-Духа', tg:'Ад-Дуҳо' },
-    { n:94, a:'Ash-Sharh', ru:'Аш-Шарх', tg:'Аш-Шарх' },
+    { n:94, a:'Ash-Sharh', ru:'Аш-Шарх', tg:'Аш-Шарҳ' },
     { n:95, a:'At-Tin', ru:'Ат-Тин', tg:'Ат-Тин' },
-    { n:96, a:'Al-Alaq', ru:'Аль-Алак', tg:'Ал-Алак' },
+    { n:96, a:'Al-`Alaq', ru:'Аль-Аляк', tg:'Ал-Аляқ' },
     { n:97, a:'Al-Qadr', ru:'Аль-Кадр', tg:'Ал-Қадр' },
-    { n:98, a:'Al-Bayyinah', ru:'Аль-Баийин', tg:'Ал-Баййина' },
-    { n:99, a:'Az-Zalzalah', ru:'Аз-Залзаля', tg:'Аз-Залзала' },
-    { n:100, a:'Al-Adiyat', ru:'Аль-Адиат', tg:'Ал-Одиёт' },
-    { n:101, a:'Al-Qari`ah', ru:'Аль-Кариа', tg:'Ал-Қория' },
-    { n:102, a:'At-Takathur', ru:'Ат-Такясур', tg:'Ат-Такосур' },
-    { n:103, a:'Al-Asr', ru:'Аль-Аср', tg:'Ал-Аср' },
+    { n:98, a:'Al-Bayyinah', ru:'Аль-Баййина', tg:'Ал-Баййина' },
+    { n:99, a:'Az-Zalzalah', ru:'Аз-Зальзаля', tg:'Аз-Залзала' },
+    { n:100, a:'Al-`Adiyat', ru:'Аль-Адия', tg:'Ал-Адия' },
+    { n:101, a:'Al-Qari`ah', ru:'Аль-Кариа', tg:'Ал-Қориа' },
+    { n:102, a:'At-Takathur', ru:'Ат-Такасур', tg:'Ат-Такасур' },
+    { n:103, a:'Al-`Asr', ru:'Аль-Аср', tg:'Ал-Аср' },
     { n:104, a:'Al-Humazah', ru:'Аль-Хумаза', tg:'Ал-Ҳумаза' },
     { n:105, a:'Al-Fil', ru:'Аль-Филь', tg:'Ал-Фил' },
     { n:106, a:'Quraysh', ru:'Курайш', tg:'Қурайш' },
-    { n:107, a:'Al-Ma`un', ru:'Аль-Маун', tg:'Ал-Маъун' },
+    { n:107, a:'Al-Ma`un', ru:'Аль-Маун', tg:'Ал-Маун' },
     { n:108, a:'Al-Kawthar', ru:'Аль-Каусар', tg:'Ал-Кавсар' },
-    { n:109, a:'Al-Kafirun', ru:'Аль-Кяфирун', tg:'Ал-Кофирун' },
+    { n:109, a:'Al-Kafirun', ru:'Аль-Кафирун', tg:'Ал-Кафирун' },
     { n:110, a:'An-Nasr', ru:'Ан-Наср', tg:'Ан-Наср' },
-    { n:111, a:'Al-Masad', ru:'Аль-Масад', tg:'Ал-Масад' },
+    { n:111, a:'Al-Masad', ru:'Аль-Масад', tg:'Ал-Масод' },
     { n:112, a:'Al-Ikhlas', ru:'Аль-Ихлас', tg:'Ал-Ихлос' },
     { n:113, a:'Al-Falaq', ru:'Аль-Фаляк', tg:'Ал-Фалақ' },
-    { n:114, a:'An-Nas', ru:'Ан-Нас', tg:'Ан-Нос' }
+    { n:114, a:'An-Nas', ru:'Ан-Нас', tg:'Ан-Нас' }
   ]
 
-  function currentLang(){ return localStorage.getItem('lang') || 'ru' }
+  function currentLang(){ return localStorage.getItem('lang') || 'tg' }
 
   function titleFor(surah){
     const lang = currentLang()
@@ -249,45 +249,49 @@
     const lang = currentLang()
     const prefix = `lastRead:${lang}:`
     let latest = null
-    for (let i=1;i<=114;i++){
-      const v = localStorage.getItem(prefix + i)
-      if (!v) continue
-      const ts = Number(localStorage.getItem(`${prefix}${i}:ts`) || 0)
-      if (!latest || ts > latest.ts){ latest = { num: i, page: Number(v)||1, ts } }
+    let latestTime = 0
+    for (let i = 0; i < localStorage.length; i++){
+      const key = localStorage.key(i)
+      if (!key || !key.startsWith(prefix)) continue
+      const tsKey = `${key}:ts`
+      const ts = Number(localStorage.getItem(tsKey) || '0')
+      if (ts > latestTime){
+        latestTime = ts
+        latest = key
+      }
     }
     return latest
   }
 
   function updateContinue(){
-    if (!cont || !contLink) return
-    const saved = findLatestSaved()
-    if (!saved){ cont.hidden = true; return }
-    const surah = SURAHS.find(s=>s.n===saved.num)
-    const name = surah ? titleFor(surah) : `Surah ${saved.num}`
-    const when = new Date(saved.ts || Date.now()).toLocaleString()
-    const href = `surah.html?num=${saved.num}#page=${saved.page}`
-    contLink.textContent = `${name}`
-    contLink.href = href
-    if (contGo) contGo.href = href
-    if (contMeta){
-      const lang = currentLang()
-      const labelPage = lang==='tg' ? 'Саҳифа' : (lang==='en' ? 'Page' : 'Страница')
-      const labelLast = lang==='tg' ? 'Охирин хондан' : (lang==='en' ? 'Last read' : 'Последнее чтение')
-      contMeta.textContent = `${labelPage}: ${saved.page} • ${labelLast}: ${when}`
+    if (!cont || !contLink || !contGo || !contMeta) return
+    const latest = findLatestSaved()
+    if (!latest){
+      cont.hidden = true
+      return
     }
+    const parts = latest.split(':')
+    const surahNum = Number(parts[2])
+    const page = localStorage.getItem(latest)
+    const ts = localStorage.getItem(`${latest}:ts`)
+    const surah = SURAHS.find(s => s.n === surahNum)
+    if (!surah) return
+    const name = titleFor(surah)
+    const time = new Date(Number(ts)).toLocaleString()
+    contLink.href = `surah.html?num=${surahNum}#page=${page}`
+    contGo.href = `surah.html?num=${surahNum}#page=${page}`
+    contMeta.innerHTML = `
+      <span class="surah">${name}</span>
+      <span class="page">Страница ${page}</span>
+      <span class="time">${time}</span>
+    `
     cont.hidden = false
-    if (clearContinue){
-      const lang = currentLang()
-      const prefix = `lastRead:${lang}:`
-      if (clearContinue){
-        clearContinue.style.display = 'none'
-      }
-    }
-    // Make whole banner clickable
-    if (cont){ cont.onclick = (e)=>{ const isLink = e.target === contLink || e.target === contGo; if (!isLink){ window.location.href = href } } }
   }
 
-  document.addEventListener('DOMContentLoaded', init)
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init)
+  } else {
+    init()
+  }
 })()
-
-

@@ -1,5 +1,5 @@
 ;(function(){
-  const DEFAULT_LANG = localStorage.getItem('lang') || 'ru'
+  const DEFAULT_LANG = localStorage.getItem('lang') || 'tg'
   const html = document.documentElement
   const select = document.getElementById('languageSelect')
   if (select) select.value = DEFAULT_LANG
