@@ -768,16 +768,29 @@
         const viewport = page.getViewport({ scale: 1 })
         const targetWidth = Math.min(980, container.clientWidth - 20)
         const scale = targetWidth / viewport.width
+        
+        // Get device pixel ratio for high DPI displays (mobile devices)
+        const devicePixelRatio = window.devicePixelRatio || 1
         const scaledViewport = page.getViewport({ scale })
 
         const canvas = document.createElement('canvas')
-        canvas.width = scaledViewport.width
-        canvas.height = scaledViewport.height
+        const ctx = canvas.getContext('2d')
+        
+        // Set canvas size for high DPI
+        canvas.width = scaledViewport.width * devicePixelRatio
+        canvas.height = scaledViewport.height * devicePixelRatio
+        
+        // Scale the canvas back down using CSS
+        canvas.style.width = scaledViewport.width + 'px'
+        canvas.style.height = scaledViewport.height + 'px'
+        
+        // Scale the drawing context so everything draws at the correct size
+        ctx.scale(devicePixelRatio, devicePixelRatio)
+        
         canvas.className = 'pdf-page'
         container.appendChild(canvas)
         canvases.push(canvas)
 
-        const ctx = canvas.getContext('2d')
         const renderPromise = page.render({ canvasContext: ctx, viewport: scaledViewport }).promise.then(() => {
           // Update progress after each page renders
           const progress = ((i / numPages) * 100)

@@ -542,6 +542,16 @@ body {
     font-size: 15px; 
     margin: 0 auto 14px; 
   }
+  
+  /* Mobile PDF quality improvements */
+  .pdf-container {
+    padding: 8px;
+    max-height: 70vh;
+  }
+  .pdf-page {
+    margin: 0 auto 12px;
+    box-shadow: 0 1px 8px rgba(0,0,0,.15);
+  }
   .lang-select { 
     appearance: none; 
     background-image: none;
@@ -623,6 +633,15 @@ body {
   box-shadow: 0 2px 12px rgba(0,0,0,.25); 
   border-radius: 6px; 
   position: relative;
+  /* Improve quality on high DPI displays */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  /* Ensure smooth scaling */
+  image-rendering: auto;
+  /* Better text rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Hide page numbers and any PDF.js page indicators */
