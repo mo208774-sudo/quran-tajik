@@ -229,35 +229,24 @@
     // Show loader initially
     showLoader(true)
     
-    // Simulate loading with progress
-    let progress = 0
-    const interval = setInterval(() => {
-      progress += Math.random() * 15
-      if (progress > 90) progress = 90
-      updateProgress(progress)
-    }, 50)
+    // Render content immediately
+    render(SURAHS)
     
-    // Complete loading after 500ms
-    setTimeout(() => {
-      clearInterval(interval)
-      updateProgress(100)
-      
-      render(SURAHS)
-      if (searchInput){
-        document.addEventListener('keydown', e=>{ if (e.key === '/' && document.activeElement !== searchInput){ e.preventDefault(); searchInput.focus() }})
-        searchInput.addEventListener('input', filter)
-      }
-      window.addEventListener('lang:change', ()=>{ filter(); updateContinue() })
+    // Setup event listeners
+    if (searchInput){
+      document.addEventListener('keydown', e=>{ if (e.key === '/' && document.activeElement !== searchInput){ e.preventDefault(); searchInput.focus() }})
+      searchInput.addEventListener('input', filter)
+    }
+    window.addEventListener('lang:change', ()=>{ filter(); updateContinue() })
 
-      // Initial render of continue banner and live updates
-      updateContinue()
-      window.addEventListener('storage', (e)=>{ if (!e.key) return; if (e.key.startsWith(`lastRead:${currentLang()}:`)) updateContinue() })
-      window.addEventListener('pageshow', updateContinue)
-      document.addEventListener('visibilitychange', ()=>{ if (!document.hidden) updateContinue() })
-      
-      // Hide loader after everything is ready
-      setTimeout(() => showLoader(false), 200)
-    }, 500)
+    // Initial render of continue banner and live updates
+    updateContinue()
+    window.addEventListener('storage', (e)=>{ if (!e.key) return; if (e.key.startsWith(`lastRead:${currentLang()}:`)) updateContinue() })
+    window.addEventListener('pageshow', updateContinue)
+    document.addEventListener('visibilitychange', ()=>{ if (!document.hidden) updateContinue() })
+    
+    // Hide loader immediately after everything is ready
+    showLoader(false)
   }
 
   function findLatestSaved(){

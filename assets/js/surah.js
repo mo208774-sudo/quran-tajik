@@ -37,7 +37,33 @@
 
   const SURAHS = window.SURAHS || []
 
+  // PDF Cache
+  const pdfCache = new Map()
+  const pdfCacheTimeout = 5 * 60 * 1000 // 5 minutes
+
   function currentLang(){ return localStorage.getItem('lang') || 'tg' }
+
+  // Cache functions
+  function getCachedPdf(pdfPath) {
+    const cached = pdfCache.get(pdfPath)
+    if (cached && Date.now() - cached.timestamp < pdfCacheTimeout) {
+      console.log('PDF cache hit:', pdfPath)
+      return cached.pdf
+    }
+    if (cached) {
+      console.log('PDF cache expired:', pdfPath)
+      pdfCache.delete(pdfPath)
+    }
+    return null
+  }
+
+  function setCachedPdf(pdfPath, pdf) {
+    pdfCache.set(pdfPath, {
+      pdf: pdf,
+      timestamp: Date.now()
+    })
+    console.log('PDF cached:', pdfPath)
+  }
 
   function getName(s){
     const lang = currentLang()
@@ -202,17 +228,22 @@
       window.analytics.trackSurahRead(num, name, 1)
     }
     
+    // Hide loader immediately - page is ready
+    showLoader(false)
+    
     // Debug info
     console.log('Rendering surah:', num, 'PDF path:', pdfPath())
     console.log('PDF.js available:', !!window['pdfjsLib'])
     
-    // Render PDF
+    // Render PDF in background (non-blocking)
     if (window['pdfjsLib']) {
       console.log('Using PDF.js for rendering')
-      renderWithPdfJs()
+      // Use setTimeout to make PDF loading non-blocking
+      setTimeout(() => renderWithPdfJs(), 0)
     } else {
       console.log('Using iframe for rendering')
-      renderWithIframe()
+      // Use setTimeout to make iframe loading non-blocking
+      setTimeout(() => renderWithIframe(), 0)
     }
   }
 
@@ -340,10 +371,31 @@
 
   // Audio player functions
   async function loadAudioData() {
+    const audioUrl = `https://quranapi.pages.dev/api/audio/${num}.json`
+    
+    // Check cache first
+    const cachedAudio = localStorage.getItem(`audio_${num}`)
+    if (cachedAudio) {
+      try {
+        audioData = JSON.parse(cachedAudio)
+        console.log('Using cached audio data for surah:', num)
+        populateReciterSelect()
+        return
+      } catch (error) {
+        console.log('Invalid cached audio data, loading fresh')
+        localStorage.removeItem(`audio_${num}`)
+      }
+    }
+    
     try {
-      const response = await fetch(`https://quranapi.pages.dev/api/audio/${num}.json`)
+      const response = await fetch(audioUrl)
       if (!response.ok) throw new Error('Failed to load audio data')
       audioData = await response.json()
+      
+      // Cache audio data
+      localStorage.setItem(`audio_${num}`, JSON.stringify(audioData))
+      console.log('Audio data cached for surah:', num)
+      
       populateReciterSelect()
     } catch (error) {
       console.error('Error loading audio data:', error)
@@ -726,13 +778,157 @@
     }, 100) // Poll every 100ms
   }
 
+  // Render PDF pages (used for both cached and new PDFs)
+  async function renderPdfPages(pdf) {
+    const numPages = pdf.numPages
+    console.log('Rendering PDF pages:', numPages)
+    
+    container.innerHTML = ''
+    const canvases = []
+
+    // Get target page first
+    const initial = pageFromHash() || getSavedPage()
+    console.log('Initial page to scroll to:', initial)
+
+    // Render all pages with progress tracking
+    const renderPromises = []
+    for (let i = 1; i <= numPages; i++){
+      const page = await pdf.getPage(i)
+      const viewport = page.getViewport({ scale: 1 })
+      const targetWidth = Math.min(980, container.clientWidth - 20)
+      const scale = targetWidth / viewport.width
+      
+      // Get device pixel ratio for high DPI displays (mobile devices)
+      const devicePixelRatio = window.devicePixelRatio || 1
+      const scaledViewport = page.getViewport({ scale })
+
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
+      
+      // Set canvas size for high DPI
+      canvas.width = scaledViewport.width * devicePixelRatio
+      canvas.height = scaledViewport.height * devicePixelRatio
+      
+      // Scale the canvas back down using CSS
+      canvas.style.width = scaledViewport.width + 'px'
+      canvas.style.height = scaledViewport.height + 'px'
+      
+      // Scale the drawing context so everything draws at the correct size
+      ctx.scale(devicePixelRatio, devicePixelRatio)
+      
+      canvas.className = 'pdf-page'
+      container.appendChild(canvas)
+      canvases.push(canvas)
+
+      const renderPromise = page.render({ canvasContext: ctx, viewport: scaledViewport }).promise.then(() => {
+        // Update progress after each page renders
+        const progress = ((i / numPages) * 100)
+        updateProgress(progress)
+      })
+      renderPromises.push(renderPromise)
+    }
+
+    // Wait for all pages to render
+    await Promise.all(renderPromises)
+    updateProgress(100)
+    console.log('All pages rendered')
+    
+    // Setup scroll tracking
+    setupScrollTracking(canvases, initial)
+  }
+
+  // Setup scroll tracking for PDF pages
+  function setupScrollTracking(canvases, initial) {
+    // scroll tracking
+    function detect(){
+      // Check if canvases are ready
+      if (!canvases || canvases.length === 0) {
+        console.log('Detect: canvases not ready yet')
+        return
+      }
+      
+      const scrollTop = container.scrollTop
+      const containerHeight = container.clientHeight
+      const viewportTop = scrollTop
+      const viewportBottom = scrollTop + containerHeight
+      
+      console.log('Detect: scrollTop=', scrollTop, 'containerHeight=', containerHeight, 'canvases=', canvases.length)
+      
+      // Find the page that is most visible in the viewport
+      let bestPage = 1
+      let maxVisibleArea = 0
+      
+      for (let i = 0; i < canvases.length; i++){
+        const el = canvases[i]
+        if (!el || el.offsetHeight === 0) {
+          console.log(`Page ${i+1}: not ready yet`)
+          continue
+        }
+        
+        const pageTop = el.offsetTop
+        const pageBottom = pageTop + el.offsetHeight
+        
+        // Calculate visible area of this page
+        const visibleTop = Math.max(viewportTop, pageTop)
+        const visibleBottom = Math.min(viewportBottom, pageBottom)
+        const visibleArea = Math.max(0, visibleBottom - visibleTop)
+        
+        console.log(`Page ${i+1}: top=${pageTop}, bottom=${pageBottom}, visible=${visibleArea}`)
+        
+        if (visibleArea > maxVisibleArea) {
+          maxVisibleArea = visibleArea
+          bestPage = i + 1
+        }
+      }
+      
+      console.log('Best visible page:', bestPage, 'area:', maxVisibleArea)
+      
+      if (bestPage !== current) {
+        current = bestPage
+        console.log('Page changed to:', current)
+        
+        // Dispatch custom event for other components
+        window.dispatchEvent(new CustomEvent('reading:updated', { detail: { num, page: current } }))
+        showToast(current)
+      }
+    }
+
+    // Throttled scroll handler
+    const throttledDetect = throttle(detect, 100)
+    container.addEventListener('scroll', throttledDetect)
+    
+    // Now scroll to the target page after all rendering is complete
+    const target = canvases[initial - 1]
+    if (target){ 
+      console.log('Scrolling to page', initial, 'at position', target.offsetTop)
+      container.scrollTop = target.offsetTop - 8
+    } else {
+      console.log('No target found for page', initial)
+    }
+    
+    // Wait a bit for scroll to complete, then detect current page
+    setTimeout(() => {
+      console.log('Running initial detect after scroll')
+      detect()
+    }, 100)
+  }
+
   // Render via PDF.js, capture current page on scroll
   async function renderWithPdfJs(){
-    showLoader(true)
+    const src = pdfPath()
+    console.log('PDF.js rendering - src:', src)
+    
+    // Check cache first
+    const cachedPdf = getCachedPdf(src)
+    if (cachedPdf) {
+      console.log('Using cached PDF:', src)
+      await renderPdfPages(cachedPdf)
+      return
+    }
+    
+    // Show PDF loading indicator
+    showPdfLoadingIndicator(true)
     try {
-      const src = pdfPath()
-      console.log('PDF.js rendering - src:', src)
-      
       const pdfjsLib = window['pdfjsLib']
       if (!pdfjsLib) {
         throw new Error('PDF.js library not loaded')
@@ -751,130 +947,10 @@
         cMapPacked: true
       })
       const pdf = await loadingTask.promise
-      const numPages = pdf.numPages
       
-      console.log('PDF loaded successfully, pages:', numPages)
-      container.innerHTML = ''
-      const canvases = []
-
-      // Get target page first
-      const initial = pageFromHash() || getSavedPage()
-      console.log('Initial page to scroll to:', initial)
-
-      // Render all pages with progress tracking
-      const renderPromises = []
-      for (let i = 1; i <= numPages; i++){
-        const page = await pdf.getPage(i)
-        const viewport = page.getViewport({ scale: 1 })
-        const targetWidth = Math.min(980, container.clientWidth - 20)
-        const scale = targetWidth / viewport.width
-        
-        // Get device pixel ratio for high DPI displays (mobile devices)
-        const devicePixelRatio = window.devicePixelRatio || 1
-        const scaledViewport = page.getViewport({ scale })
-
-        const canvas = document.createElement('canvas')
-        const ctx = canvas.getContext('2d')
-        
-        // Set canvas size for high DPI
-        canvas.width = scaledViewport.width * devicePixelRatio
-        canvas.height = scaledViewport.height * devicePixelRatio
-        
-        // Scale the canvas back down using CSS
-        canvas.style.width = scaledViewport.width + 'px'
-        canvas.style.height = scaledViewport.height + 'px'
-        
-        // Scale the drawing context so everything draws at the correct size
-        ctx.scale(devicePixelRatio, devicePixelRatio)
-        
-        canvas.className = 'pdf-page'
-        container.appendChild(canvas)
-        canvases.push(canvas)
-
-        const renderPromise = page.render({ canvasContext: ctx, viewport: scaledViewport }).promise.then(() => {
-          // Update progress after each page renders
-          const progress = ((i / numPages) * 100)
-          updateProgress(progress)
-        })
-        renderPromises.push(renderPromise)
-      }
-
-      // Wait for all pages to render
-      await Promise.all(renderPromises)
-      updateProgress(100)
-      console.log('All pages rendered')
-
-      // scroll tracking
-      function detect(){
-        // Check if canvases are ready
-        if (!canvases || canvases.length === 0) {
-          console.log('Detect: canvases not ready yet')
-          return
-        }
-        
-        const scrollTop = container.scrollTop
-        const containerHeight = container.clientHeight
-        const viewportTop = scrollTop
-        const viewportBottom = scrollTop + containerHeight
-        
-        console.log('Detect: scrollTop=', scrollTop, 'containerHeight=', containerHeight, 'canvases=', canvases.length)
-        
-        // Find the page that is most visible in the viewport
-        let bestPage = 1
-        let maxVisibleArea = 0
-        
-        for (let i = 0; i < canvases.length; i++){
-          const el = canvases[i]
-          if (!el || el.offsetHeight === 0) {
-            console.log(`Page ${i+1}: not ready yet`)
-            continue
-          }
-          
-          const pageTop = el.offsetTop
-          const pageBottom = pageTop + el.offsetHeight
-          
-          // Calculate visible area of this page
-          const visibleTop = Math.max(viewportTop, pageTop)
-          const visibleBottom = Math.min(viewportBottom, pageBottom)
-          const visibleArea = Math.max(0, visibleBottom - visibleTop)
-          
-          console.log(`Page ${i+1}: top=${pageTop}, bottom=${pageBottom}, visible=${visibleArea}`)
-          
-          if (visibleArea > maxVisibleArea) {
-            maxVisibleArea = visibleArea
-            bestPage = i + 1
-          }
-        }
-        
-        console.log('Auto-detected page:', bestPage, 'with visible area:', maxVisibleArea)
-        savePage(bestPage)
-        window.dispatchEvent(new CustomEvent('reading:updated', { detail: { num, page: bestPage } }))
-      }
-      
-      // Add scroll listener after a delay to ensure pages are rendered
-      setTimeout(() => {
-        container.addEventListener('scroll', throttle(detect, 250))
-        console.log('Scroll listener added')
-      }, 1000)
-      
-      // Now scroll to the target page after all rendering is complete
-      const target = canvases[initial - 1]
-      if (target){ 
-        console.log('Scrolling to page', initial, 'at position', target.offsetTop)
-        container.scrollTop = target.offsetTop - 8
-      } else {
-        console.log('No target found for page', initial)
-      }
-      
-      // Wait a bit for scroll to complete, then detect current page
-      setTimeout(() => {
-        console.log('Running initial detect after scroll')
-        detect()
-      }, 500)
-      
-      // initial save
-      savePage(initial)
-      window.dispatchEvent(new CustomEvent('reading:updated', { detail: { num, page: initial } }))
+      // Cache the PDF
+      setCachedPdf(src, pdf)
+      await renderPdfPages(pdf)
     } catch (error) {
       console.error('Error rendering PDF:', error)
       
@@ -882,7 +958,7 @@
       console.log('Falling back to iframe rendering')
       renderWithIframe()
     } finally {
-      showLoader(false)
+      showPdfLoadingIndicator(false)
     }
   }
 
@@ -904,9 +980,34 @@
     }
   }
 
+  function showPdfLoadingIndicator(show = true){
+    if (!container) return
+    
+    if (show) {
+      // Show PDF loading indicator
+      container.innerHTML = `
+        <div class="pdf-loading-indicator">
+          <div class="pdf-loading-spinner">📄</div>
+          <div class="pdf-loading-text">Загрузка PDF...</div>
+          <div class="pdf-progress-bar">
+            <div class="pdf-progress-fill" id="pdfProgressFill"></div>
+          </div>
+        </div>
+      `
+    } else {
+      // Hide PDF loading indicator (PDF content will replace it)
+    }
+  }
+
   function updateProgress(percent){
     if (progressFill) progressFill.style.width = `${percent}%`
     if (progressText) progressText.textContent = `${Math.round(percent)}%`
+    
+    // Also update PDF progress bar if it exists
+    const pdfProgressFill = document.getElementById('pdfProgressFill')
+    if (pdfProgressFill) {
+      pdfProgressFill.style.width = `${percent}%`
+    }
   }
 
   function showToast(page){
