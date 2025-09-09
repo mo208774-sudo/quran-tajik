@@ -39,12 +39,15 @@
 <body>
     <header class="site-header">
         <div class="container header-inner">
-            <div class="brand">
-                <a href="index.html" class="home-btn" aria-label="Главная страница" title="Главная страница">
-                    <span class="home-icon">☰</span>
-                </a>
-                <h1 id="surahName" class="surah-title">Surah</h1>
-            </div>
+        <div class="brand">
+            <a href="index.html" class="home-btn" aria-label="Главная страница" title="Главная страница">
+                <span class="home-icon">☰</span>
+            </a>
+            <a href="index.html" class="header-home-btn" aria-label="Главная страница" title="Главная страница">
+                <span class="header-home-icon">⌂</span>
+            </a>
+            <h1 id="surahName" class="surah-title">Surah</h1>
+        </div>
             <div class="header-actions">
                 <!-- Desktop Audio Controls -->
                 <div class="desktop-audio-controls">
@@ -74,6 +77,27 @@
             </div>
         </div>
     </header>
+
+        <!-- Sidebar Menu -->
+        <div class="sidebar-menu" id="sidebarMenu">
+            <div class="sidebar-header">
+                <div class="sidebar-title-container">
+                    <a href="index.html" class="sidebar-home-btn" aria-label="Главная страница" title="Главная страница">
+                        <span class="sidebar-home-icon">⌂</span>
+                    </a>
+                    <h3 class="sidebar-title" data-i18n="sidebar_title">Список сур</h3>
+                </div>
+                <button class="sidebar-close" id="sidebarClose" aria-label="Закрыть меню">×</button>
+            </div>
+        <div class="sidebar-content">
+            <div class="surah-list" id="sidebarSurahList">
+                <!-- Surah list will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <main class="container">
 
