@@ -366,6 +366,8 @@
   function initTheme(){
     const saved = localStorage.getItem('theme') || 'dark'
     document.documentElement.setAttribute('data-theme', saved)
+    updateThemeIcon(saved)
+    
     const btn = document.getElementById('themeToggle')
     if (!btn) return
     btn.addEventListener('click', ()=>{
@@ -373,7 +375,15 @@
       const next = current === 'light' ? 'dark' : 'light'
       document.documentElement.setAttribute('data-theme', next)
       localStorage.setItem('theme', next)
+      updateThemeIcon(next)
     })
+  }
+  
+  function updateThemeIcon(theme) {
+    const themeIcon = document.querySelector('.theme-icon')
+    if (themeIcon) {
+      themeIcon.textContent = theme === 'light' ? '☀' : '☽'
+    }
   }
 
   function initCommon(){
