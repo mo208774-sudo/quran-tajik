@@ -44,7 +44,7 @@ Allow: /android-chrome-*.png
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://tafsiri-osonbayon.com/sitemap.xml
+Sitemap: https://tafsir.site/sitemap.xml
 
 # Additional directives for specific bots
 User-agent: Googlebot

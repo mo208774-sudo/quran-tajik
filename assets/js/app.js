@@ -313,11 +313,27 @@
 
   // Add to home screen
   function addToHome() {
-    if ('serviceWorker' in navigator) {
-      // PWA installation
-      showToast('Функция добавления на главный экран будет доступна в PWA версии')
+    // Проверяем поддержку PWA
+    if ('serviceWorker' in navigator && 'beforeinstallprompt' in window) {
+      // Показываем встроенный промпт браузера
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault()
+        e.prompt()
+        e.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            showToast('Приложение успешно добавлено на главный экран!')
+          }
+        })
+      })
+    } else if (navigator.userAgent.includes('iPhone') || navigator.userAgent.includes('iPad')) {
+      // Инструкции для iOS
+      showToast('Нажмите кнопку "Поделиться" в Safari и выберите "На экран Домой"')
+    } else if (navigator.userAgent.includes('Android')) {
+      // Инструкции для Android
+      showToast('Нажмите меню браузера и выберите "Добавить на главный экран"')
     } else {
-      showToast('Ваш браузер не поддерживает эту функцию')
+      // Общие инструкции
+      showToast('Используйте меню браузера для добавления на главный экран')
     }
   }
 

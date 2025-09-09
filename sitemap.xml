@@ -5,136 +5,136 @@
   
   <!-- Main pages -->
   <url>
-    <loc>https://tafsiri-osonbayon.com/</loc>
+    <loc>https://tafsir.site/</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsiri-osonbayon.com/"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsiri-osonbayon.com/?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tafsiri-osonbayon.com/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsir.site/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsir.site/?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tafsir.site/?lang=en"/>
   </url>
   
   <!-- Surah pages -->
   <url>
-    <loc>https://tafsiri-osonbayon.com/surah.html?num=1</loc>
+    <loc>https://tafsir.site/surah.html?num=1</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsiri-osonbayon.com/surah.html?num=1"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsiri-osonbayon.com/surah.html?num=1&amp;lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tafsiri-osonbayon.com/surah.html?num=1&amp;lang=en"/>
+    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsir.site/surah.html?num=1"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsir.site/surah.html?num=1&amp;lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tafsir.site/surah.html?num=1&amp;lang=en"/>
   </url>
   
   <url>
-    <loc>https://tafsiri-osonbayon.com/surah.html?num=2</loc>
+    <loc>https://tafsir.site/surah.html?num=2</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsiri-osonbayon.com/surah.html?num=2"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsiri-osonbayon.com/surah.html?num=2&amp;lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tafsiri-osonbayon.com/surah.html?num=2&amp;lang=en"/>
+    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsir.site/surah.html?num=2"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsir.site/surah.html?num=2&amp;lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tafsir.site/surah.html?num=2&amp;lang=en"/>
   </url>
   
   <!-- Information pages -->
   <url>
-    <loc>https://tafsiri-osonbayon.com/about.html</loc>
+    <loc>https://tafsir.site/about.html</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsiri-osonbayon.com/about.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsiri-osonbayon.com/about.html?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tafsiri-osonbayon.com/about.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsir.site/about.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsir.site/about.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tafsir.site/about.html?lang=en"/>
   </url>
   
   <url>
-    <loc>https://tafsiri-osonbayon.com/contact.html</loc>
+    <loc>https://tafsir.site/contact.html</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsiri-osonbayon.com/contact.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsiri-osonbayon.com/contact.html?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tafsiri-osonbayon.com/contact.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsir.site/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsir.site/contact.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tafsir.site/contact.html?lang=en"/>
   </url>
   
   <url>
-    <loc>https://tafsiri-osonbayon.com/privacy.html</loc>
+    <loc>https://tafsir.site/privacy.html</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsiri-osonbayon.com/privacy.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsiri-osonbayon.com/privacy.html?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tafsiri-osonbayon.com/privacy.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsir.site/privacy.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsir.site/privacy.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tafsir.site/privacy.html?lang=en"/>
   </url>
   
   <url>
-    <loc>https://tafsiri-osonbayon.com/attention.html</loc>
+    <loc>https://tafsir.site/attention.html</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsiri-osonbayon.com/attention.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsiri-osonbayon.com/attention.html?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tafsiri-osonbayon.com/attention.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsir.site/attention.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsir.site/attention.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tafsir.site/attention.html?lang=en"/>
   </url>
   
   <url>
-    <loc>https://tafsiri-osonbayon.com/license.html</loc>
+    <loc>https://tafsir.site/license.html</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsiri-osonbayon.com/license.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsiri-osonbayon.com/license.html?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tafsiri-osonbayon.com/license.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsir.site/license.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsir.site/license.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tafsir.site/license.html?lang=en"/>
   </url>
   
   <!-- PDF pages -->
   <url>
-    <loc>https://tafsiri-osonbayon.com/author-preface.html</loc>
+    <loc>https://tafsir.site/author-preface.html</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
-    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsiri-osonbayon.com/author-preface.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsiri-osonbayon.com/author-preface.html?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tafsiri-osonbayon.com/author-preface.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsir.site/author-preface.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsir.site/author-preface.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tafsir.site/author-preface.html?lang=en"/>
   </url>
   
   <url>
-    <loc>https://tafsiri-osonbayon.com/editor-preface.html</loc>
+    <loc>https://tafsir.site/editor-preface.html</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
-    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsiri-osonbayon.com/editor-preface.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsiri-osonbayon.com/editor-preface.html?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tafsiri-osonbayon.com/editor-preface.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsir.site/editor-preface.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsir.site/editor-preface.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tafsir.site/editor-preface.html?lang=en"/>
   </url>
   
   <url>
-    <loc>https://tafsiri-osonbayon.com/quran-collection.html</loc>
+    <loc>https://tafsir.site/quran-collection.html</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
-    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsiri-osonbayon.com/quran-collection.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsiri-osonbayon.com/quran-collection.html?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tafsiri-osonbayon.com/quran-collection.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsir.site/quran-collection.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsir.site/quran-collection.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tafsir.site/quran-collection.html?lang=en"/>
   </url>
   
   <url>
-    <loc>https://tafsiri-osonbayon.com/istiaza-basmala.html</loc>
+    <loc>https://tafsir.site/istiaza-basmala.html</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
-    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsiri-osonbayon.com/istiaza-basmala.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsiri-osonbayon.com/istiaza-basmala.html?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tafsiri-osonbayon.com/istiaza-basmala.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsir.site/istiaza-basmala.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsir.site/istiaza-basmala.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tafsir.site/istiaza-basmala.html?lang=en"/>
   </url>
   
   <url>
-    <loc>https://tafsiri-osonbayon.com/glossary.html</loc>
+    <loc>https://tafsir.site/glossary.html</loc>
     <lastmod>2024-01-15</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
-    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsiri-osonbayon.com/glossary.html"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsiri-osonbayon.com/glossary.html?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://tafsiri-osonbayon.com/glossary.html?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="tg" href="https://tafsir.site/glossary.html"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://tafsir.site/glossary.html?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://tafsir.site/glossary.html?lang=en"/>
   </url>
   
 </urlset>
