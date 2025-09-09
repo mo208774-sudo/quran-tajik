@@ -83,33 +83,6 @@ body {
 .home-icon { 
   font-size: 18px; 
 }
-
-.header-home-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-  text-decoration: none;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-}
-
-.header-home-btn:hover {
-  background: var(--panel);
-  border-color: var(--text-secondary);
-  color: var(--text);
-}
-
-.header-home-icon {
-  font-size: 16px;
-  line-height: 1;
-}
-
 .surah-title { 
   font-size: 20px; 
   margin: 0; 
@@ -504,177 +477,6 @@ body {
   transition: width 0.3s ease;
 }
 
-/* Sidebar Menu */
-.sidebar-menu {
-  position: fixed;
-  top: 0;
-  left: -300px;
-  width: 300px;
-  height: 100vh;
-  background: var(--panel);
-  border-right: 1px solid var(--border);
-  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  transition: left 0.3s ease;
-  overflow-y: auto;
-}
-
-.sidebar-menu.open {
-  left: 0;
-}
-
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-  border-bottom: 1px solid var(--border);
-  background: var(--bg);
-}
-
-.sidebar-title-container {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.sidebar-home-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-secondary);
-  text-decoration: none;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-}
-
-.sidebar-home-btn:hover {
-  background: var(--panel);
-  border-color: var(--text-secondary);
-  color: var(--text);
-}
-
-.sidebar-home-icon {
-  font-size: 16px;
-  line-height: 1;
-}
-
-.sidebar-title {
-  margin: 0;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--text);
-}
-
-.sidebar-close {
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: var(--muted);
-  cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-.sidebar-close:hover {
-  color: var(--text);
-  background: var(--border);
-}
-
-.sidebar-content {
-  padding: 20px;
-}
-
-.sidebar-surah-item {
-  display: block;
-  padding: 12px 16px;
-  margin-bottom: 8px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--text);
-  text-decoration: none;
-  transition: all 0.2s ease;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.sidebar-surah-item:hover {
-  background: var(--brand);
-  color: white;
-  border-color: var(--brand);
-  transform: translateX(4px);
-}
-
-.sidebar-surah-item.active {
-  background: var(--brand);
-  color: white;
-  border-color: var(--brand);
-}
-
-.sidebar-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
-
-.sidebar-overlay.open {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Mobile sidebar adjustments */
-@media (max-width: 600px) {
-  .sidebar-menu {
-    width: 280px;
-    left: -280px;
-  }
-  
-  .sidebar-header {
-    padding: 16px;
-  }
-  
-  .sidebar-title-container {
-    gap: 10px;
-  }
-  
-  .sidebar-home-btn {
-    width: 28px;
-    height: 28px;
-    border-radius: 4px;
-  }
-  
-  .sidebar-home-icon {
-    font-size: 14px;
-  }
-  
-  .sidebar-title {
-    font-size: 16px;
-  }
-  
-  .sidebar-content {
-    padding: 16px;
-  }
-  
-  .sidebar-surah-item {
-    padding: 10px 14px;
-    font-size: 13px;
-  }
-}
-
 /* Info menu */
 .info-menu { position: relative; }
 .info-toggle { 
@@ -719,8 +521,6 @@ body {
   .surah-title { font-size: 18px; }
   .home-btn { width: 36px; height: 36px; }
   .home-icon { font-size: 16px; }
-  .header-home-btn { width: 28px; height: 28px; border-radius: 4px; }
-  .header-home-icon { font-size: 14px; }
   .header-actions { gap: 8px; }
   .desktop-audio-controls { display: none !important; }
   .mobile-audio-controls { 
@@ -766,8 +566,6 @@ body {
   .surah-title { font-size: 16px; }
   .home-btn { width: 32px; height: 32px; }
   .home-icon { font-size: 14px; }
-  .header-home-btn { width: 26px; height: 26px; border-radius: 4px; }
-  .header-home-icon { font-size: 12px; }
   .header-actions { gap: 6px; }
   .desktop-audio-controls { display: none !important; }
   .mobile-audio-controls { 

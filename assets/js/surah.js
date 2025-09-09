@@ -35,130 +35,7 @@
   const infoToggle = document.getElementById('infoToggle')
   const infoDropdown = document.getElementById('infoDropdown')
 
-  // Sidebar menu elements
-  const sidebarMenu = document.getElementById('sidebarMenu')
-  const sidebarOverlay = document.getElementById('sidebarOverlay')
-  const sidebarClose = document.getElementById('sidebarClose')
-  const sidebarSurahList = document.getElementById('sidebarSurahList')
-  const homeBtn = document.querySelector('.home-btn')
-  const headerHomeBtn = document.querySelector('.header-home-btn')
-
-  const SURAHS = window.SURAHS || [
-    { n:1,  a:'Al-Fatiha', ru:'Аль-Фатиха', tg:'Ал-Фотиҳа' },
-    { n:2,  a:'Al-Baqarah', ru:'Аль-Бакара', tg:'Ал-Бақара' },
-    { n:3,  a:"Ali 'Imran", ru:'Али Имран', tg:"Оли Имрон" },
-    { n:4,  a:'An-Nisa', ru:'Ан-Ниса', tg:'Ан-Нисо' },
-    { n:5,  a:"Al-Ma'idah", ru:'Аль-Маида', tg:'Ал-Моида' },
-    { n:6,  a:"Al-An'am", ru:'Аль-Анам', tg:'Ал-Анам' },
-    { n:7,  a:'Al-A`raf', ru:'Аль-Араф', tg:'Ал-Аъроф' },
-    { n:8,  a:'Al-Anfal', ru:'Аль-Анфаль', tg:'Ал-Анфол' },
-    { n:9,  a:'At-Tawbah', ru:'Ат-Тауба', tg:'Ат-Тавба' },
-    { n:10, a:'Yunus', ru:'Юнус', tg:'Юнус' },
-    { n:11, a:'Hud', ru:'Худ', tg:'Ҳуд' },
-    { n:12, a:'Yusuf', ru:'Юсуф', tg:'Юсуф' },
-    { n:13, a:'Ar-Ra`d', ru:'Ар-Раад', tg:'Ар-Раъд' },
-    { n:14, a:'Ibrahim', ru:'Ибрахим', tg:'Иброҳим' },
-    { n:15, a:'Al-Hijr', ru:'Аль-Хиджр', tg:'Ал-Ҳижр' },
-    { n:16, a:'An-Nahl', ru:'Ан-Нахль', tg:'Ан-Нахл' },
-    { n:17, a:'Al-Isra', ru:'Аль-Исра', tg:'Ал-Исро' },
-    { n:18, a:'Al-Kahf', ru:'Аль-Кахф', tg:'Ал-Каҳф' },
-    { n:19, a:'Maryam', ru:'Марьям', tg:'Марям' },
-    { n:20, a:'Ta-Ha', ru:'Та Ха', tg:'То Ҳо' },
-    { n:21, a:'Al-Anbiya', ru:'Аль-Анбия', tg:'Ал-Анбиё' },
-    { n:22, a:'Al-Hajj', ru:'Аль-Хадж', tg:'Ал-Ҳаҷ' },
-    { n:23, a:'Al-Mu minun', ru:'Аль-Муминиун', tg:'Ал-Муъминун' },
-    { n:24, a:'An-Nur', ru:'Ан-Нур', tg:'Ан-Нур' },
-    { n:25, a:'Al-Furqan', ru:'Аль-Фуркан', tg:'Ал-Фурқон' },
-    { n:26, a:"Ash-Shu'ara'", ru:'Аш-Шуара', tg:'Аш-Шуъаро' },
-    { n:27, a:'An-Naml', ru:'Ан-Намль', tg:'Ан-Намл' },
-    { n:28, a:'Al-Qasas', ru:'Аль-Касас', tg:'Ал-Қасас' },
-    { n:29, a:'Al-Ankabut', ru:'Аль-Анкабут', tg:'Ал-Анкабут' },
-    { n:30, a:'Ar-Rum', ru:'Ар-Рум', tg:'Ар-Рум' },
-    { n:31, a:'Luqman', ru:'Лукман', tg:'Луқмон' },
-    { n:32, a:'As-Sajdah', ru:'Ас-Саджда', tg:'Ас-Саджда' },
-    { n:33, a:'Al-Ahzab', ru:'Аль-Ахзаб', tg:'Ал-Аҳзоб' },
-    { n:34, a:'Saba', ru:'Саба', tg:'Саба' },
-    { n:35, a:'Fatir', ru:'Фатыр', tg:'Фотир' },
-    { n:36, a:'Ya-Sin', ru:'Йа Син', tg:'Ё Син' },
-    { n:37, a:'As-Saffat', ru:'Ас-Саффат', tg:'Ас-Саффат' },
-    { n:38, a:'Sad', ru:'Сад', tg:'Сод' },
-    { n:39, a:'Az-Zumar', ru:'Аз-Зумар', tg:'Аз-Зумар' },
-    { n:40, a:'Ghafir', ru:'Гафир', tg:'Ғофир' },
-    { n:41, a:'Fussilat', ru:'Фуссилат', tg:'Фуссилат' },
-    { n:42, a:'Ash-Shura', ru:'Аш-Шура', tg:'Аш-Шуро' },
-    { n:43, a:'Az-Zukhruf', ru:'Аз-Зухруф', tg:'Аз-Зухруф' },
-    { n:44, a:'Ad-Dukhan', ru:'Ад-Духан', tg:'Ад-Духон' },
-    { n:45, a:'Al-Jathiyah', ru:'Аль-Джасия', tg:'Ал-Ҷасия' },
-    { n:46, a:'Al-Ahqaf', ru:'Аль-Ахкаф', tg:'Ал-Аҳқаф' },
-    { n:47, a:'Muhammad', ru:'Мухаммад', tg:'Муҳаммад' },
-    { n:48, a:'Al-Fath', ru:'Аль-Фатх', tg:'Ал-Фатҳ' },
-    { n:49, a:'Al-Hujurat', ru:'Аль-Худжурат', tg:'Ал-Ҳуҷурот' },
-    { n:50, a:'Qaf', ru:'Каф', tg:'Қоф' },
-    { n:51, a:'Adh-Dhariyat', ru:'Аз-Зарият', tg:'Аз-Зариёт' },
-    { n:52, a:'At-Tur', ru:'Ат-Тур', tg:'Ат-Тур' },
-    { n:53, a:'An-Najm', ru:'Ан-Наджм', tg:'Ан-Наҷм' },
-    { n:54, a:'Al-Qamar', ru:'Аль-Камар', tg:'Ал-Қамар' },
-    { n:55, a:'Ar-Rahman', ru:'Ар-Рахман', tg:'Ар-Раҳмон' },
-    { n:56, a:'Al-Waqi ah', ru:'Аль-Вакиа', tg:'Ал-Воқиа' },
-    { n:57, a:'Al-Hadid', ru:'Аль-Хадид', tg:'Ал-Ҳадид' },
-    { n:58, a:'Al-Mujadila', ru:'Аль-Муджадила', tg:'Ал-Муҷадила' },
-    { n:59, a:'Al-Hashr', ru:'Аль-Хашр', tg:'Ал-Ҳашр' },
-    { n:60, a:'Al-Mumtahana', ru:'Аль-Мумтахана', tg:'Ал-Мумтаҳана' },
-    { n:61, a:'As-Saff', ru:'Ас-Сафф', tg:'Ас-Сафф' },
-    { n:62, a:'Al-Jumu ah', ru:'Аль-Джумуа', tg:'Ал-Ҷумуа' },
-    { n:63, a:'Al-Munafiqun', ru:'Аль-Мунафикун', tg:'Ал-Мунафиқун' },
-    { n:64, a:'At-Taghabun', ru:'Ат-Тагабун', tg:'Ат-Тағабун' },
-    { n:65, a:'At-Talaq', ru:'Ат-Таляк', tg:'Ат-Талақ' },
-    { n:66, a:'At-Tahrim', ru:'Ат-Тахрим', tg:'Ат-Таҳрим' },
-    { n:67, a:'Al-Mulk', ru:'Аль-Мульк', tg:'Ал-Мулк' },
-    { n:68, a:'Al-Qalam', ru:'Аль-Калям', tg:'Ал-Қалам' },
-    { n:69, a:'Al-Haqqah', ru:'Аль-Хакка', tg:'Ал-Ҳаққа' },
-    { n:70, a:'Al-Ma arij', ru:'Аль-Мааридж', tg:'Ал-Маориҷ' },
-    { n:71, a:'Nuh', ru:'Нух', tg:'Нуҳ' },
-    { n:72, a:'Al-Jinn', ru:'Аль-Джинн', tg:'Ал-Ҷинн' },
-    { n:73, a:'Al-Muzzammil', ru:'Аль-Муззаммиль', tg:'Ал-Муззаммил' },
-    { n:74, a:'Al-Muddaththir', ru:'Аль-Муддассир', tg:'Ал-Муддассир' },
-    { n:75, a:'Al-Qiyamah', ru:'Аль-Кияма', tg:'Ал-Қиёма' },
-    { n:76, a:'Al-Insan', ru:'Аль-Инсан', tg:'Ал-Инсон' },
-    { n:77, a:'Al-Mursalat', ru:'Аль-Мурсалят', tg:'Ал-Мурсалят' },
-    { n:78, a:'An-Naba', ru:'Ан-Наба', tg:'Ан-Наба' },
-    { n:79, a:'An-Nazi at', ru:'Ан-Назиат', tg:'Ан-Назиот' },
-    { n:80, a:'Abasa', ru:'Абаса', tg:'Абаса' },
-    { n:81, a:'At-Takwir', ru:'Ат-Таквир', tg:'Ат-Таквир' },
-    { n:82, a:'Al-Infitar', ru:'Аль-Инфитар', tg:'Ал-Инфитор' },
-    { n:83, a:'Al-Mutaffifin', ru:'Аль-Мутаффифин', tg:'Ал-Мутаффифин' },
-    { n:84, a:'Al-Inshiqaq', ru:'Аль-Иншикак', tg:'Ал-Иншиқоқ' },
-    { n:85, a:'Al-Buruj', ru:'Аль-Бурудж', tg:'Ал-Буруҷ' },
-    { n:86, a:'At-Tariq', ru:'Ат-Тарик', tg:'Ат-Тарик' },
-    { n:87, a:'Al-A la', ru:'Аль-Аля', tg:'Ал-Аъля' },
-    { n:88, a:'Al-Ghashiyah', ru:'Аль-Гашия', tg:'Ал-Ғашия' },
-    { n:89, a:'Al-Fajr', ru:'Аль-Фаджр', tg:'Ал-Фаҷр' },
-    { n:90, a:'Al-Balad', ru:'Аль-Баляд', tg:'Ал-Баляд' },
-    { n:91, a:'Ash-Shams', ru:'Аш-Шамс', tg:'Аш-Шамс' },
-    { n:92, a:'Al-Layl', ru:'Аль-Лайль', tg:'Ал-Лайл' },
-    { n:93, a:'Ad-Duha', ru:'Ад-Духа', tg:'Ад-Дуҳо' },
-    { n:94, a:'Ash-Sharh', ru:'Аш-Шарх', tg:'Аш-Шарҳ' },
-    { n:95, a:'At-Tin', ru:'Ат-Тин', tg:'Ат-Тин' },
-    { n:96, a:'Al-Alaq', ru:'Аль-Аляк', tg:'Ал-Аълақ' },
-    { n:97, a:'Al-Qadr', ru:'Аль-Кадр', tg:'Ал-Қадр' },
-    { n:98, a:'Al-Bayyinah', ru:'Аль-Баййина', tg:'Ал-Баййина' },
-    { n:99, a:'Az-Zalzalah', ru:'Аз-Зальзаля', tg:'Аз-Залзала' },
-    { n:100, a:'Al-Adiyat', ru:'Аль-Адия', tg:'Ал-Адия' },
-    { n:101, a:'Al-Qari ah', ru:'Аль-Кариа', tg:'Ал-Қориа' },
-    { n:102, a:'At-Takathur', ru:'Ат-Такасур', tg:'Ат-Такасур' },
-    { n:103, a:'Al-Asr', ru:'Аль-Аср', tg:'Ал-Аср' },
-    { n:104, a:'Al-Humazah', ru:'Аль-Хумаза', tg:'Ал-Ҳумаза' },
-    { n:105, a:'Al-Fil', ru:'Аль-Филь', tg:'Ал-Фил' },
-    { n:106, a:'Quraysh', ru:'Курайш', tg:'Қурайш' },
-    { n:107, a:'Al-Ma un', ru:'Аль-Маун', tg:'Ал-Маъун' },
-    { n:108, a:'Al-Kawthar', ru:'Аль-Каусар', tg:'Ал-Каусар' },
-    { n:109, a:'Al-Kafirun', ru:'Аль-Кафирун', tg:'Ал-Кафирун' },
-    { n:110, a:'An-Nasr', ru:'Ан-Наср', tg:'Ан-Наср' },
-    { n:111, a:'Al-Masad', ru:'Аль-Масад', tg:'Ал-Масод' },
-    { n:112, a:'Al-Ikhlas', ru:'Аль-Ихлас', tg:'Ал-Ихлос' },
-    { n:113, a:'Al-Falaq', ru:'Аль-Фаляк', tg:'Ал-Фалақ' },
-    { n:114, a:'An-Nas', ru:'Ан-Нас', tg:'Ан-Нас' }
-  ]
+  const SURAHS = window.SURAHS || []
 
   // PDF Cache
   const pdfCache = new Map()
@@ -193,53 +70,6 @@
     if (lang === 'tg') return s.tg
     if (lang === 'en') return s.a
     return s.ru
-  }
-
-  // Sidebar menu functions
-  function openSidebar() {
-    if (sidebarMenu && sidebarOverlay) {
-      sidebarMenu.classList.add('open')
-      sidebarOverlay.classList.add('open')
-      document.body.style.overflow = 'hidden'
-    }
-  }
-
-  function closeSidebar() {
-    if (sidebarMenu && sidebarOverlay) {
-      sidebarMenu.classList.remove('open')
-      sidebarOverlay.classList.remove('open')
-      document.body.style.overflow = ''
-    }
-  }
-
-  function renderSidebarSurahs() {
-    console.log('renderSidebarSurahs called')
-    console.log('sidebarSurahList:', sidebarSurahList)
-    console.log('SURAHS length:', SURAHS.length)
-    
-    if (!sidebarSurahList) {
-      console.log('sidebarSurahList not found')
-      return
-    }
-    
-    sidebarSurahList.innerHTML = ''
-    
-    SURAHS.forEach(surah => {
-      const surahName = getName(surah)
-      const surahItem = document.createElement('a')
-      surahItem.href = `surah.html?num=${surah.n}`
-      surahItem.className = 'sidebar-surah-item'
-      surahItem.textContent = `${surah.n}. ${surahName}`
-      
-      // Highlight current surah
-      if (surah.n === num) {
-        surahItem.classList.add('active')
-      }
-      
-      sidebarSurahList.appendChild(surahItem)
-    })
-    
-    console.log('Sidebar surahs rendered:', sidebarSurahList.children.length)
   }
 
   const FALLBACK = { n:num, a:`Surah ${num}`, ru:`Сура ${num}`, tg:`Сура ${num}` }
@@ -400,9 +230,6 @@
     
     // Hide loader immediately - page is ready
     showLoader(false)
-    
-    // Render sidebar surahs
-    renderSidebarSurahs()
     
     // Debug info
     console.log('Rendering surah:', num, 'PDF path:', pdfPath())
@@ -885,37 +712,6 @@
     
     // Load audio data on page load
     loadAudioData()
-    
-    // Sidebar menu event listeners
-    if (homeBtn) {
-      homeBtn.addEventListener('click', (e) => {
-        e.preventDefault()
-        openSidebar()
-      })
-    }
-    
-    // Header home button (goes to main page)
-    if (headerHomeBtn) {
-      headerHomeBtn.addEventListener('click', (e) => {
-        // Let the default link behavior work (no preventDefault)
-        // This will navigate to index.html
-      })
-    }
-    
-    if (sidebarClose) {
-      sidebarClose.addEventListener('click', closeSidebar)
-    }
-    
-    if (sidebarOverlay) {
-      sidebarOverlay.addEventListener('click', closeSidebar)
-    }
-    
-    // Close sidebar on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && sidebarMenu && sidebarMenu.classList.contains('open')) {
-        closeSidebar()
-      }
-    })
     
     // also persist on lang change (page number kept)
     window.addEventListener('lang:change', render)
