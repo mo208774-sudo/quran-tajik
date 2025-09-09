@@ -365,8 +365,86 @@
 
   function openFullscreen(){
     if (!container) return
-    if (container.requestFullscreen) container.requestFullscreen()
-    else if (container.webkitRequestFullscreen) container.webkitRequestFullscreen()
+    
+    // Check if we're on iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+    
+    if (isIOS) {
+      // For iOS, we'll use a different approach - make the PDF container take full viewport
+      container.classList.add('ios-fullscreen')
+      document.body.classList.add('ios-fullscreen-active')
+      
+      // Add close button for iOS
+      if (!document.getElementById('ios-fullscreen-close')) {
+        const closeBtn = document.createElement('button')
+        closeBtn.id = 'ios-fullscreen-close'
+        closeBtn.innerHTML = '✕'
+        closeBtn.className = 'ios-fullscreen-close-btn'
+        closeBtn.onclick = closeFullscreen
+        container.appendChild(closeBtn)
+      }
+      
+      return
+    }
+    
+    // Standard fullscreen for other devices
+    if (container.requestFullscreen) {
+      container.requestFullscreen().catch(err => {
+        console.log('Fullscreen failed:', err)
+        // Fallback to iOS-style fullscreen
+        container.classList.add('ios-fullscreen')
+        document.body.classList.add('ios-fullscreen-active')
+      })
+    } else if (container.webkitRequestFullscreen) {
+      container.webkitRequestFullscreen()
+    } else if (container.mozRequestFullScreen) {
+      container.mozRequestFullScreen()
+    } else if (container.msRequestFullscreen) {
+      container.msRequestFullscreen()
+    }
+  }
+  
+  function closeFullscreen(){
+    // Remove iOS fullscreen classes
+    container.classList.remove('ios-fullscreen')
+    document.body.classList.remove('ios-fullscreen-active')
+    
+    // Remove close button
+    const closeBtn = document.getElementById('ios-fullscreen-close')
+    if (closeBtn) {
+      closeBtn.remove()
+    }
+    
+    // Try to exit standard fullscreen if active
+    if (document.exitFullscreen) {
+      document.exitFullscreen().catch(() => {})
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen()
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen()
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen()
+    }
+  }
+  
+  function handleFullscreenChange(){
+    // Check if we're still in fullscreen mode
+    const isFullscreen = !!(document.fullscreenElement || 
+                           document.webkitFullscreenElement || 
+                           document.mozFullScreenElement || 
+                           document.msFullscreenElement)
+    
+    if (!isFullscreen) {
+      // User exited fullscreen, clean up iOS classes if they exist
+      container.classList.remove('ios-fullscreen')
+      document.body.classList.remove('ios-fullscreen-active')
+      
+      const closeBtn = document.getElementById('ios-fullscreen-close')
+      if (closeBtn) {
+        closeBtn.remove()
+      }
+    }
   }
 
   // Audio player functions
@@ -562,6 +640,19 @@
 
   function initControls(){
     if (fullscreenBtn) fullscreenBtn.addEventListener('click', openFullscreen)
+    
+    // Add keyboard listener for escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeFullscreen()
+      }
+    })
+    
+    // Listen for fullscreen change events
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange)
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange)
+    document.addEventListener('MSFullscreenChange', handleFullscreenChange)
     if (savePageBtn) savePageBtn.addEventListener('click', ()=>{
       console.log('Save page button clicked')
       // determine current page based on PDF.js scroll or iframe hash

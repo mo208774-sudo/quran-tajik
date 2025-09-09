@@ -437,6 +437,54 @@ body {
   text-decoration: underline; 
 }
 
+/* iOS Fullscreen Support */
+.ios-fullscreen {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 9999 !important;
+  background: var(--bg) !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  max-height: none !important;
+}
+
+.ios-fullscreen-active {
+  overflow: hidden !important;
+}
+
+.ios-fullscreen-close-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+.ios-fullscreen-close-btn:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: scale(1.1);
+}
+
+.ios-fullscreen-close-btn:active {
+  transform: scale(0.95);
+}
+
 /* PDF Loading Indicator */
 .pdf-loading-indicator {
   display: flex;
