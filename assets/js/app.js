@@ -30,27 +30,68 @@
   applyThemeToLoader()
 
   // Fix Safari mobile app section styles
-  function fixSafariMobileAppStyles() {
+  window.fixSafariMobileAppStyles = function() {
     const mobileAppSection = document.querySelector('.mobile-app-section')
     const features = document.querySelectorAll('.feature')
+    const appContentH2 = document.querySelector('.app-content h2')
+    const appDescription = document.querySelector('.app-description')
+    const featureTexts = document.querySelectorAll('.feature-text h3, .feature-text p')
     
     if (mobileAppSection) {
       // Force apply styles for Safari
       const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
       if (isSafari) {
-        const computedStyle = getComputedStyle(document.documentElement)
-        const cardBg = computedStyle.getPropertyValue('--card-bg').trim()
-        const panel = computedStyle.getPropertyValue('--panel').trim()
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light'
         
-        if (cardBg && panel) {
-          mobileAppSection.style.background = cardBg
-          mobileAppSection.style.backgroundImage = `linear-gradient(135deg, ${cardBg} 0%, ${panel} 100%)`
+        // Dark theme colors
+        let cardBg = '#1a1f2e'
+        let panel = '#121722'
+        let brand = '#22c1c3'
+        let text = '#e7edf3'
+        let muted = '#9fb0c3'
+        let border = '#1f2430'
+        let shadow = '0 10px 30px rgba(0,0,0,.25)'
+        
+        // Light theme colors
+        if (isLight) {
+          cardBg = '#ffffff'
+          panel = '#f5f7fb'
+          brand = '#1e88e5'
+          text = '#0b1320'
+          muted = '#5b6b7a'
+          border = '#e6e9ef'
+          shadow = '0 10px 30px rgba(0,0,0,.12)'
         }
         
+        // Apply styles to mobile app section
+        mobileAppSection.style.background = cardBg
+        mobileAppSection.style.backgroundImage = `linear-gradient(135deg, ${cardBg} 0%, ${panel} 100%)`
+        
+        // Apply styles to features
         features.forEach(feature => {
-          if (cardBg) {
-            feature.style.background = cardBg
-            feature.style.backgroundColor = cardBg
+          feature.style.background = cardBg
+          feature.style.backgroundColor = cardBg
+          feature.style.borderColor = border
+        })
+        
+        // Apply styles to text elements
+        if (appContentH2) {
+          appContentH2.style.color = brand
+          appContentH2.style.background = `linear-gradient(135deg, ${brand}, #6366f1)`
+          appContentH2.style.webkitBackgroundClip = 'text'
+          appContentH2.style.backgroundClip = 'text'
+          appContentH2.style.color = 'transparent'
+        }
+        
+        if (appDescription) {
+          appDescription.style.color = muted
+        }
+        
+        featureTexts.forEach(element => {
+          if (element.tagName === 'H3') {
+            element.style.color = text
+          } else if (element.tagName === 'P') {
+            element.style.color = muted
           }
         })
       }

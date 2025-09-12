@@ -421,6 +421,11 @@
       document.documentElement.setAttribute('data-theme', next)
       localStorage.setItem('theme', next)
       updateThemeIcon(next)
+      
+      // Fix Safari mobile app styles after theme change
+      if (window.fixSafariMobileAppStyles) {
+        setTimeout(window.fixSafariMobileAppStyles, 100)
+      }
     })
   }
   

@@ -172,21 +172,24 @@
       .cta { display: inline-block; background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: transform 0.2s ease; }
       .cta:hover { transform: translateY(-2px); }
       .loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 9999; display: flex; align-items: center; justify-content: center; }
-      .mobile-app-section { background: var(--card-bg); background: linear-gradient(135deg, var(--card-bg) 0%, var(--panel) 100%); padding: 60px 0; margin: 40px 0; border-radius: 20px; position: relative; overflow: hidden; }
+      .mobile-app-section { background: #1a1f2e; background: linear-gradient(135deg, #1a1f2e 0%, #121722 100%); padding: 60px 0; margin: 40px 0; border-radius: 20px; position: relative; overflow: hidden; }
       .app-promo { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; position: relative; z-index: 1; }
-      .app-content h2 { font-size: 2.5rem; font-weight: 700; color: var(--brand); margin-bottom: 16px; background: linear-gradient(135deg, var(--brand), #6366f1); -webkit-background-clip: text; background-clip: text; color: transparent; }
-      .app-description { font-size: 1.2rem; color: var(--muted); margin-bottom: 40px; line-height: 1.6; }
+      .app-content h2 { font-size: 2.5rem; font-weight: 700; color: #22c1c3; margin-bottom: 16px; background: linear-gradient(135deg, #22c1c3, #6366f1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      .app-description { font-size: 1.2rem; color: #9fb0c3; margin-bottom: 40px; line-height: 1.6; }
       .app-features { display: flex; flex-direction: column; gap: 24px; margin-bottom: 40px; }
-      .feature { display: flex; align-items: flex-start; gap: 16px; padding: 20px; background: var(--card-bg); border-radius: 12px; border: 1px solid var(--border); transition: all 0.3s ease; }
-      .feature:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--brand); }
+      .feature { display: flex; align-items: flex-start; gap: 16px; padding: 20px; background: #1a1f2e; border-radius: 12px; border: 1px solid #1f2430; transition: all 0.3s ease; }
+      .feature:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.25); border-color: #22c1c3; }
       .feature-icon { font-size: 2rem; flex-shrink: 0; margin-top: 4px; }
-      .feature-text h3 { font-size: 1.2rem; font-weight: 600; color: var(--text); margin-bottom: 8px; }
-      .feature-text p { color: var(--muted); line-height: 1.5; margin: 0; }
-      /* Safari-specific fixes */
-      @supports (-webkit-appearance: none) {
-        .mobile-app-section { background: var(--card-bg) !important; background-image: linear-gradient(135deg, var(--card-bg) 0%, var(--panel) 100%) !important; }
-        .feature { background: var(--card-bg) !important; background-color: var(--card-bg) !important; }
-      }
+      .feature-text h3 { font-size: 1.2rem; font-weight: 600; color: #e7edf3; margin-bottom: 8px; }
+      .feature-text p { color: #9fb0c3; line-height: 1.5; margin: 0; }
+      /* Light theme overrides */
+      [data-theme="light"] .mobile-app-section { background: #ffffff; background: linear-gradient(135deg, #ffffff 0%, #f5f7fb 100%); }
+      [data-theme="light"] .app-content h2 { color: #1e88e5; background: linear-gradient(135deg, #1e88e5, #6366f1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+      [data-theme="light"] .app-description { color: #5b6b7a; }
+      [data-theme="light"] .feature { background: #ffffff; border: 1px solid #e6e9ef; }
+      [data-theme="light"] .feature:hover { box-shadow: 0 10px 30px rgba(0,0,0,.12); border-color: #1e88e5; }
+      [data-theme="light"] .feature-text h3 { color: #0b1320; }
+      [data-theme="light"] .feature-text p { color: #5b6b7a; }
     </style>
     
     <!-- Non-critical CSS -->
