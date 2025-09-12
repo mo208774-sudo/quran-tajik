@@ -337,6 +337,14 @@
     }
   }
 
+  // Функция для показа уведомления "Скоро будет доступно"
+  function showComingSoon(storeName) {
+    showToast(`${storeName} - Скоро будет доступно!`)
+  }
+
+  // Делаем функцию доступной глобально
+  window.showComingSoon = showComingSoon
+
 
   // Info menu functionality
   function toggleInfoMenu() {
