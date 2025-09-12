@@ -29,6 +29,41 @@
   // Apply theme immediately when script loads
   applyThemeToLoader()
 
+  // Fix Safari mobile app section styles
+  function fixSafariMobileAppStyles() {
+    const mobileAppSection = document.querySelector('.mobile-app-section')
+    const features = document.querySelectorAll('.feature')
+    
+    if (mobileAppSection) {
+      // Force apply styles for Safari
+      const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+      if (isSafari) {
+        const computedStyle = getComputedStyle(document.documentElement)
+        const cardBg = computedStyle.getPropertyValue('--card-bg').trim()
+        const panel = computedStyle.getPropertyValue('--panel').trim()
+        
+        if (cardBg && panel) {
+          mobileAppSection.style.background = cardBg
+          mobileAppSection.style.backgroundImage = `linear-gradient(135deg, ${cardBg} 0%, ${panel} 100%)`
+        }
+        
+        features.forEach(feature => {
+          if (cardBg) {
+            feature.style.background = cardBg
+            feature.style.backgroundColor = cardBg
+          }
+        })
+      }
+    }
+  }
+
+  // Apply Safari fixes when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fixSafariMobileAppStyles)
+  } else {
+    fixSafariMobileAppStyles()
+  }
+
   const searchInput = document.getElementById('searchInput')
   const grid = document.getElementById('surahGrid')
   const cont = document.getElementById('continueBanner')
