@@ -409,6 +409,23 @@ body {
   padding: 20px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   position: relative;
+  transition: transform 0.3s ease;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.phone-mockup:hover {
+  transform: translateY(-10px);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .phone-mockup::before {
@@ -432,49 +449,16 @@ body {
   position: relative;
 }
 
-.app-screenshot {
+.app-screenshot-img {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, var(--card-bg), var(--panel));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
+  object-fit: cover;
+  border-radius: 30px;
+  transition: transform 0.3s ease;
 }
 
-.screenshot-content {
-  text-align: center;
-  color: var(--text);
-}
-
-.app-header {
-  margin-bottom: 30px;
-}
-
-.app-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--brand);
-}
-
-.app-subtitle {
-  font-size: 1rem;
-  color: var(--muted);
-}
-
-.app-features-preview {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.preview-feature {
-  padding: 12px 16px;
-  background: var(--card-bg);
-  border-radius: 8px;
-  font-size: 0.9rem;
-  border: 1px solid var(--border);
+.phone-mockup:hover .app-screenshot-img {
+  transform: scale(1.02);
 }
 
 /* Footer */
@@ -975,18 +959,10 @@ body {
     margin: 0 auto;
   }
   
-  .app-title {
-    font-size: 1.2rem;
+  .app-screenshot-img {
+    border-radius: 25px;
   }
   
-  .app-subtitle {
-    font-size: 0.9rem;
-  }
-  
-  .preview-feature {
-    padding: 10px 12px;
-    font-size: 0.8rem;
-  }
   .modal-content { width: 95%; margin: 10px; }
   .modal-header, .modal-body { padding: 16px; }
   .info-icon::before { content: "☰"; }
