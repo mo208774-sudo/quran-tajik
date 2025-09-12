@@ -920,6 +920,16 @@ body {
     text-align: center;
   }
   
+.app-content {
+  order: 1;
+  transition: all 0.3s ease;
+}
+
+.app-preview {
+  order: 2;
+  transition: all 0.3s ease;
+}
+  
   .app-content h2 {
     font-size: 2rem;
   }
@@ -961,6 +971,85 @@ body {
   
   .app-screenshot-img {
     border-radius: 25px;
+  }
+}
+
+/* Стили для планшетов */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .app-promo {
+    gap: 50px;
+  }
+  
+  .phone-mockup {
+    width: 260px;
+    height: 520px;
+  }
+  
+  .app-content h2 {
+    font-size: 2.2rem;
+  }
+}
+
+/* Дополнительные стили для очень маленьких экранов */
+@media (max-width: 480px) {
+  .mobile-app-section {
+    padding: 30px 0;
+    margin: 15px 0;
+  }
+  
+  .app-promo {
+    gap: 30px;
+  }
+  
+  .app-content h2 {
+    font-size: 1.8rem;
+  }
+  
+  .app-description {
+    font-size: 1rem;
+    margin-bottom: 25px;
+  }
+  
+  .app-features {
+    gap: 12px;
+    margin-bottom: 25px;
+  }
+  
+  .feature {
+    padding: 14px;
+  }
+  
+  .feature-icon {
+    font-size: 1.3rem;
+  }
+  
+  .feature-text h3 {
+    font-size: 1.1rem;
+  }
+  
+  .feature-text p {
+    font-size: 0.9rem;
+  }
+  
+  .download-btn {
+    padding: 14px 18px;
+  }
+  
+  .download-title {
+    font-size: 1rem;
+  }
+  
+  .download-subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .phone-mockup {
+    width: 200px;
+    height: 400px;
+  }
+  
+  .app-screenshot-img {
+    border-radius: 20px;
   }
   
   .modal-content { width: 95%; margin: 10px; }
