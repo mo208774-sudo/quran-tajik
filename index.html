@@ -142,7 +142,24 @@
     <style>
       /* Critical above-the-fold styles */
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      :root { --brand: #22c1c3; --brand-2: #fdbb2d; --bg: #0a0a0a; --text: #ffffff; --muted: #888888; --border: #333333; --panel: #1a1a1a; --shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+      :root { 
+        --brand: #22c1c3; 
+        --brand-2: #fdbb2d; 
+        --bg: #0a0a0a; 
+        --text: #ffffff; 
+        --muted: #888888; 
+        --border: #333333; 
+        --panel: #1a1a1a; 
+        --shadow: 0 4px 6px -1px rgba(0,0,0,0.1); 
+      }
+      [data-theme="light"] { 
+        --bg: #ffffff; 
+        --text: #0a0a0a; 
+        --muted: #666666; 
+        --border: #e0e0e0; 
+        --panel: #f5f5f5; 
+        --shadow: 0 4px 6px -1px rgba(0,0,0,0.05); 
+      }
       body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
       .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
       .site-header { background: var(--panel); border-bottom: 1px solid var(--border); padding: 16px 0; }
@@ -213,6 +230,10 @@
                         <a href="istiaza-basmala.html" data-i18n="istiaza_basmala">Истиъоза ва басмала</a>
                         <a href="glossary.html" data-i18n="glossary">Фехрести истифодашуда</a>
                         <a href="license.html" data-i18n="license">Рухсатнома</a>
+                        <div class="dropdown-divider"></div>
+                        <button id="preCacheBtn" class="dropdown-btn" data-i18n="pre_cache">Кешировать страницы</button>
+                        <button id="clearCacheBtn" class="dropdown-btn" data-i18n="clear_cache">Очистить кеш</button>
+                        <button id="cacheStatusBtn" class="dropdown-btn" data-i18n="cache_status">Статус кеша</button>
                     </div>
                 </div>
                 <button id="themeToggle" class="icon-btn" aria-label="Toggle theme" title="Theme">
@@ -395,6 +416,7 @@
     <script src="assets/js/performance.js" defer></script>
     <script src="assets/js/i18n.js" defer></script>
     <script src="assets/js/analytics.js" defer></script>
+    <script src="assets/js/cache-manager.js" defer></script>
     <script src="assets/js/app.js" defer></script>
 </body>
 </html>
