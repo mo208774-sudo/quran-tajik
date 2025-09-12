@@ -389,4 +389,67 @@
   } else {
     init()
   }
+
+  // Lazy loading for APK files to prevent blocking page load
+  function initLazyAPKLoading() {
+    const apkLinks = document.querySelectorAll('a[href*="tafsir_koran.apk"]')
+    
+    apkLinks.forEach(link => {
+      // Add click handler to show download progress
+      link.addEventListener('click', function(e) {
+        const size = this.getAttribute('data-size')
+        if (size) {
+          showDownloadNotification(size)
+        }
+      })
+      
+      // Prevent preloading by removing href initially
+      const originalHref = link.href
+      link.removeAttribute('href')
+      link.style.cursor = 'pointer'
+      
+      // Restore href on hover or focus
+      link.addEventListener('mouseenter', function() {
+        this.href = originalHref
+      })
+      
+      link.addEventListener('focus', function() {
+        this.href = originalHref
+      })
+    })
+  }
+  
+  function showDownloadNotification(size) {
+    // Create a simple notification
+    const notification = document.createElement('div')
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--brand);
+      color: white;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      z-index: 10000;
+      box-shadow: var(--shadow);
+    `
+    notification.textContent = `Начинается загрузка APK файла (${size})...`
+    
+    document.body.appendChild(notification)
+    
+    // Remove notification after 3 seconds
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.parentNode.removeChild(notification)
+      }
+    }, 3000)
+  }
+
+  // Initialize lazy loading when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initLazyAPKLoading)
+  } else {
+    initLazyAPKLoading()
+  }
 })()
