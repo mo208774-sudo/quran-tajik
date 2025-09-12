@@ -229,6 +229,254 @@ body {
 .share-btn, .add-home-btn, .telegram-link { display: inline-block; padding: 10px 16px; background: var(--brand); color: white; text-decoration: none; border-radius: 6px; margin: 4px; transition: background 0.2s ease; }
 .share-btn:hover, .add-home-btn:hover, .telegram-link:hover { background: var(--brand-2); }
 
+/* Mobile App Section */
+.mobile-app-section {
+  background: linear-gradient(135deg, var(--card-bg) 0%, var(--panel) 100%);
+  padding: 60px 0;
+  margin: 40px 0;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mobile-app-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.05) 50%, transparent 70%);
+  pointer-events: none;
+}
+
+.app-promo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.app-content h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, var(--brand), #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.app-description {
+  font-size: 1.2rem;
+  color: var(--muted);
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.app-features {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.feature:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--brand);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.feature-text h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.feature-text p {
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.app-download {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.download-btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, var(--brand), #6366f1);
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+}
+
+.download-icon {
+  flex-shrink: 0;
+  color: white;
+}
+
+.download-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.download-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.download-subtitle {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.coming-soon-apps {
+  display: flex;
+  gap: 16px;
+}
+
+.coming-soon-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--muted-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.coming-soon-item:hover {
+  background: var(--hover-bg);
+  border-color: var(--brand);
+  color: var(--text);
+}
+
+.store-icon {
+  flex-shrink: 0;
+  color: var(--muted);
+}
+
+.app-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.phone-mockup {
+  width: 280px;
+  height: 560px;
+  background: #1a1a1a;
+  border-radius: 40px;
+  padding: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.phone-mockup::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: #333;
+  border-radius: 2px;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  border-radius: 30px;
+  overflow: hidden;
+  position: relative;
+}
+
+.app-screenshot {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--card-bg), var(--panel));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.screenshot-content {
+  text-align: center;
+  color: var(--text);
+}
+
+.app-header {
+  margin-bottom: 30px;
+}
+
+.app-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--brand);
+}
+
+.app-subtitle {
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.app-features-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.preview-feature {
+  padding: 12px 16px;
+  background: var(--card-bg);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  border: 1px solid var(--border);
+}
+
 /* Footer */
 .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 30px; }
 .footer-section h3 { color: var(--text); margin-bottom: 12px; font-size: 18px; }
@@ -673,6 +921,71 @@ body {
   }
   .coming-soon {
     font-size: 11px;
+  }
+  
+  /* Mobile App Section - Mobile */
+  .mobile-app-section {
+    padding: 40px 0;
+    margin: 20px 0;
+    border-radius: 16px;
+  }
+  
+  .app-promo {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  
+  .app-content h2 {
+    font-size: 2rem;
+  }
+  
+  .app-description {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+  }
+  
+  .app-features {
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+  
+  .feature {
+    padding: 16px;
+    text-align: left;
+  }
+  
+  .feature-icon {
+    font-size: 1.5rem;
+  }
+  
+  .download-btn {
+    padding: 16px 20px;
+    justify-content: center;
+  }
+  
+  .coming-soon-apps {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .phone-mockup {
+    width: 240px;
+    height: 480px;
+    margin: 0 auto;
+  }
+  
+  .app-title {
+    font-size: 1.2rem;
+  }
+  
+  .app-subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .preview-feature {
+    padding: 10px 12px;
+    font-size: 0.8rem;
   }
   .modal-content { width: 95%; margin: 10px; }
   .modal-header, .modal-body { padding: 16px; }
